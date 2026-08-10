@@ -1,11 +1,14 @@
 /// <reference types="vite/client" />
 import { WorkoutLog } from '../types';
 
+const DEFAULT_SUPABASE_URL = 'https://wapbozmmtsmcoocxfzat.supabase.co';
+const DEFAULT_SUPABASE_KEY = 'sb_publishable_Om8qRQVpEQ09WCJRolXE9A_h3LdAclc';
+
 // Supabase REST Client using native fetch (zero npm package overhead)
 export const SupabaseService = {
   getSupabaseConfig() {
-    const url = (import.meta as any).env?.VITE_SUPABASE_URL || localStorage.getItem('pulse_supabase_url') || '';
-    const key = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || localStorage.getItem('pulse_supabase_key') || '';
+    const url = import.meta.env.VITE_SUPABASE_URL || localStorage.getItem('pulse_supabase_url') || DEFAULT_SUPABASE_URL;
+    const key = import.meta.env.VITE_SUPABASE_ANON_KEY || localStorage.getItem('pulse_supabase_key') || DEFAULT_SUPABASE_KEY;
     return { url, key };
   },
 
