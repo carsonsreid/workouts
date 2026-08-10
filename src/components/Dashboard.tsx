@@ -44,10 +44,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const [logs, setLogs] = useState<WorkoutLog[]>(initialLogs);
 
-  // Week offset state (0 = Current Week including Sun Aug 9 & Mon Aug 10 - Sun Aug 16)
+  // Week offset state (0 = Mon Aug 10 - Sun Aug 16, -1 = Mon Aug 3 - Sun Aug 9)
   const [weekOffset, setWeekOffset] = useState<number>(0);
   
-  // Calculate Monday of the target week
+  // Calculate Monday of the target week (Strict 7-day Monday -> Sunday)
   const getMondayForWeek = (offsetWeeks: number) => {
     // Base Monday: August 10, 2026 (Month is 0-indexed: 7 = August)
     const baseMonday = new Date(2026, 7, 10);
@@ -58,12 +58,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   const mondayDate = getMondayForWeek(weekOffset);
 
-  // Generate date pills (8 days for weekOffset 0: Sun Aug 9 to Sun Aug 16, 7 days for others)
-  const dayCount = weekOffset === 0 ? 8 : 7;
-  const weekDates = Array.from({ length: dayCount }, (_, i) => {
+  // Generate strictly 7 days (Monday through Sunday)
+  const weekDates = Array.from({ length: 7 }, (_, i) => {
     const d = new Date(mondayDate);
-    // If weekOffset === 0, start from Sun Aug 9 (i - 1), ending on Sun Aug 16 (i = 7)
-    d.setDate(mondayDate.getDate() + (weekOffset === 0 ? i - 1 : i));
+    d.setDate(mondayDate.getDate() + i);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
@@ -79,8 +77,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
     };
   });
 
-  // Current Selected Date (ISO format YYYY-MM-DD, defaults to Sunday Aug 9, 2026)
-  const [selectedDateISO, setSelectedDateISO] = useState<string>('2026-08-09');
+  // Current Selected Date (ISO format YYYY-MM-DD, defaults to Monday Aug 10, 2026 for offset 0)
+  const [selectedDateISO, setSelectedDateISO] = useState<string>('2026-08-10');
 
   // Update selectedDateISO whenever weekOffset changes if current selection isn't in view
   useEffect(() => {
@@ -111,7 +109,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // EXPLICIT WORKOUT ROUTINES FOR AUG 9 & AUG 10 - AUG 16, 2026 ONLY
   const getWorkoutDataForISO = (isoDate: string) => {
     switch (isoDate) {
-      case '2026-08-09': // TODAY: Sunday Aug 9, 2026
+      case '2026-08-09': // Prior Sunday: Aug 9, 2026
         return {
           dayLabel: 'Sun',
           title: 'Loaded Mobility & Strength-Through-Range',
@@ -620,7 +618,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'FK4rHfWKEac',
               videoTitle: 'Dumbbell Pullover Demo',
               sets: [
-                { id: 'po-1', setType: '1', previous: '30 lbs × 12', weightLbs: 30, reps: 12, completed: false },
+                { id: 'po-1', setType: '1', previous: '30 lbs × 12', weightLbs: 30, reps: 10, completed: false },
                 { id: 'po-2', setType: '2', previous: '35 lbs × 10', weightLbs: 35, reps: 10, completed: false },
                 { id: 'po-3', setType: '3', previous: '45 lbs × 10', weightLbs: 45, reps: 10, completed: false },
               ]
@@ -788,9 +786,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
     onFinishWorkout(newLog);
   };
 
-  // Format header range for current week view (e.g., AUG 9 – AUG 16, 2026)
+  // Format header range for current week view (e.g., AUG 10 – AUG 16, 2026)
   const firstDay = weekDates[0];
-  const lastDay = weekDates[weekDates.length - 1];
+  const lastDay = weekDates[6];
   const weekRangeLabel = `${firstDay.monthShort.toUpperCase()} ${firstDay.dayNum} – ${lastDay.monthShort.toUpperCase()} ${lastDay.dayNum}, ${firstDay.year}`;
 
   return (
@@ -930,12 +928,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
               cursor: 'pointer',
             }}
           >
-            Aug 9–16
+            This Week (Aug 10–16)
           </button>
         )}
       </div>
 
-      {/* 1. CLEAN HORIZONTAL CALENDAR STRIP */}
+      {/* 1. CLEAN 7-DAY HORIZONTAL CALENDAR STRIP */}
       <div className="figma-horizontal-calendar">
         {weekDates.map((d) => {
           const submitted = isDateSubmitted(d.iso);
