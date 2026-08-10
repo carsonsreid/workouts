@@ -750,7 +750,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     if (existingLog && existingLog.notes) {
       setWorkoutNotes(existingLog.notes);
     } else if (selectedDateISO === '2026-08-09') {
-      setWorkoutNotes('Knee analgesia wall sit worked magic! Zero patellar tendon pain on squats.');
+      setWorkoutNotes('Ok, this worked. Good workout.');
     } else {
       setWorkoutNotes('');
     }
@@ -1047,14 +1047,33 @@ export const Dashboard: React.FC<DashboardProps> = ({
             >
               <span className="cal-day-name">{d.dayName}</span>
               <span className="cal-day-num">{d.dayNum}</span>
-              <div
-                className="cal-dot-indicator"
-                style={{
-                  background: submitted
-                    ? isSelected ? '#FFFFFF' : 'var(--figma-cyan)'
-                    : isSelected ? 'rgba(255, 255, 255, 0.4)' : 'transparent',
-                }}
-              />
+              {submitted ? (
+                <div
+                  style={{
+                    marginTop: '2px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '14px',
+                    height: '14px',
+                    borderRadius: '50%',
+                    background: isSelected ? '#FFFFFF' : '#10B981',
+                    color: isSelected ? '#059669' : '#FFFFFF',
+                    boxShadow: isSelected ? '0 2px 6px rgba(0,0,0,0.15)' : '0 2px 6px rgba(16, 185, 129, 0.4)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  title="Workout Completed & Submitted"
+                >
+                  <IconCheck size={9} color={isSelected ? '#059669' : '#FFFFFF'} />
+                </div>
+              ) : (
+                <div
+                  className="cal-dot-indicator"
+                  style={{
+                    background: isSelected ? 'rgba(255, 255, 255, 0.4)' : 'transparent',
+                  }}
+                />
+              )}
             </button>
           );
         })}
