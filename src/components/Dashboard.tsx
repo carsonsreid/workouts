@@ -44,12 +44,42 @@ export const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const [logs, setLogs] = useState<WorkoutLog[]>(initialLogs);
 
-  // Week offset state (0 = Mon Aug 10 - Sun Aug 16, -1 = Mon Aug 3 - Sun Aug 9)
-  const [weekOffset, setWeekOffset] = useState<number>(0);
-  
+  // Helper to calculate target week offset for any date ISO string (Base Monday = Aug 10, 2026)
+  const calculateWeekOffsetForDate = (isoStr: string) => {
+    const parts = isoStr.split('-').map(Number);
+    const targetDate = new Date(parts[0], parts[1] - 1, parts[2]);
+    const baseMonday = new Date(2026, 7, 10);
+    
+    // Normalize time to midnight
+    targetDate.setHours(0, 0, 0, 0);
+    baseMonday.setHours(0, 0, 0, 0);
+
+    const diffDays = Math.floor((targetDate.getTime() - baseMonday.getTime()) / (1000 * 3600 * 24));
+    return Math.floor(diffDays / 7);
+  };
+
+  // Initialize selected date from URL query param ?date=YYYY-MM-DD or localStorage fallback
+  const getInitialSelectedDate = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const dateParam = searchParams.get('date');
+    if (dateParam && /^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+      return dateParam;
+    }
+    const cachedDate = localStorage.getItem('pulse_last_selected_date');
+    if (cachedDate && /^\d{4}-\d{2}-\d{2}$/.test(cachedDate)) {
+      return cachedDate;
+    }
+    return '2026-08-10'; // Default to Aug 10, 2026
+  };
+
+  const initialDate = getInitialSelectedDate();
+
+  // Week offset state (calculated from initial selected date)
+  const [weekOffset, setWeekOffset] = useState<number>(calculateWeekOffsetForDate(initialDate));
+  const [selectedDateISO, setSelectedDateISO] = useState<string>(initialDate);
+
   // Calculate Monday of the target week (Strict 7-day Monday -> Sunday)
   const getMondayForWeek = (offsetWeeks: number) => {
-    // Base Monday: August 10, 2026 (Month is 0-indexed: 7 = August)
     const baseMonday = new Date(2026, 7, 10);
     const targetMonday = new Date(baseMonday);
     targetMonday.setDate(baseMonday.getDate() + (offsetWeeks * 7));
@@ -77,14 +107,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
     };
   });
 
-  // Current Selected Date (ISO format YYYY-MM-DD, defaults to Monday Aug 10, 2026 for offset 0)
-  const [selectedDateISO, setSelectedDateISO] = useState<string>('2026-08-10');
+  // Keep URL query param and localStorage strictly in sync with selectedDateISO
+  const handleSelectDate = (iso: string) => {
+    setSelectedDateISO(iso);
+    localStorage.setItem('pulse_last_selected_date', iso);
+
+    // Update URL query parameter cleanly without triggering page reload
+    const newUrl = `${window.location.pathname}?date=${iso}`;
+    window.history.replaceState({ path: newUrl }, '', newUrl);
+  };
 
   // Update selectedDateISO whenever weekOffset changes if current selection isn't in view
   useEffect(() => {
     const isCurrentInWeek = weekDates.some(w => w.iso === selectedDateISO);
     if (!isCurrentInWeek) {
-      setSelectedDateISO(weekDates[0].iso);
+      handleSelectDate(weekDates[0].iso);
     }
   }, [weekOffset]);
 
@@ -916,7 +953,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
         {weekOffset !== 0 && (
           <button
-            onClick={() => setWeekOffset(0)}
+            onClick={() => {
+              setWeekOffset(0);
+              handleSelectDate('2026-08-10');
+            }}
             style={{
               background: 'rgba(0, 163, 255, 0.12)',
               color: 'var(--figma-cyan)',
@@ -944,7 +984,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               key={d.iso}
               className={`figma-cal-pill ${isSelected ? 'active' : ''}`}
               onClick={() => {
-                setSelectedDateISO(d.iso);
+                handleSelectDate(d.iso);
                 setWorkoutNotes('');
                 setStatusMessage('');
                 setExpandedVideoExId(null);
