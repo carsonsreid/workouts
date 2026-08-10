@@ -681,12 +681,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
         };
 
       default:
-        // UNSCHEDULED / FUTURE OR PAST WEEKS (RELY ON USER UPDATE)
+        // UNSCHEDULED / REST DAYS
         return {
           dayLabel: parseLocalDate(isoDate).toLocaleDateString('en-US', { weekday: 'short' }),
           title: 'No Workout Scheduled',
-          category: 'Unscheduled',
-          overview: 'No workout is scheduled for this date yet. Paste your updated routine for this week whenever you are ready!',
+          category: 'Rest Day',
+          overview: 'Rest and active recovery day.',
           exercises: []
         };
     }
@@ -1087,45 +1087,49 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
       {/* 2. ACTIVE WORKOUT & SETS CARD */}
       <div className="figma-tracker-card">
-        {/* INLINE HEADER WITH ZERO ADDED HEIGHT */}
+        {/* INLINE HEADER WITH CATEGORY BADGE & CONDITIONALLY RENDERED TV MODE BUTTON */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ background: 'rgba(0, 163, 255, 0.12)', color: 'var(--figma-cyan)', padding: '3px 10px', borderRadius: 'var(--radius-pill)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase' }}>
             {activeWorkout.category}
           </span>
-          <button
-            onClick={() => setIsTvModeOpen(true)}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              background: 'rgba(0, 163, 255, 0.08)',
-              color: 'var(--figma-cyan)',
-              border: 'none',
-              padding: '3px 10px',
-              borderRadius: 'var(--radius-pill)',
-              fontSize: '0.7rem',
-              fontWeight: 800,
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            📺 TV Mode
-          </button>
+          {activeWorkout.exercises.length > 0 && (
+            <button
+              onClick={() => setIsTvModeOpen(true)}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                background: 'rgba(0, 163, 255, 0.08)',
+                color: 'var(--figma-cyan)',
+                border: 'none',
+                padding: '3px 10px',
+                borderRadius: 'var(--radius-pill)',
+                fontSize: '0.7rem',
+                fontWeight: 800,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              📺 TV Mode
+            </button>
+          )}
         </div>
 
         <h2 style={{ fontSize: '1.14rem', fontWeight: 800, marginTop: '6px', lineHeight: 1.3 }}>
           {activeWorkout.title}
         </h2>
 
-        {/* WORKOUT OVERVIEW / DESCRIPTION BOX */}
-        <div className="overview-box">
-          {activeWorkout.overview}
-        </div>
+        {/* WORKOUT OVERVIEW / DESCRIPTION BOX (ONLY RENDER FOR SCHEDULED WORKOUTS) */}
+        {activeWorkout.exercises.length > 0 && (
+          <div className="overview-box">
+            {activeWorkout.overview}
+          </div>
+        )}
 
         {/* Exercises List */}
         {activeWorkout.exercises.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '24px 12px', color: '#64748B', fontSize: '0.85rem', fontWeight: 600 }}>
-            No exercises scheduled for this date. Paste your new workout routine when ready!
+          <div style={{ padding: '12px 0 6px', color: '#64748B', fontSize: '0.84rem', fontWeight: 500 }}>
+            Rest and active recovery day. No workout scheduled.
           </div>
         ) : (
           activeWorkout.exercises.map((ex: ExerciseItem, idx: number) => {
