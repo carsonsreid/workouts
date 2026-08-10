@@ -58,11 +58,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   const mondayDate = getMondayForWeek(weekOffset);
 
-  // Generate 7 days for the current week (Sunday Aug 9 + Monday Aug 10 through Saturday Aug 15)
-  // For weekOffset 0, include Sunday Aug 9 as the first day!
-  const weekDates = Array.from({ length: 7 }, (_, i) => {
+  // Generate date pills (8 days for weekOffset 0: Sun Aug 9 to Sun Aug 16, 7 days for others)
+  const dayCount = weekOffset === 0 ? 8 : 7;
+  const weekDates = Array.from({ length: dayCount }, (_, i) => {
     const d = new Date(mondayDate);
-    // If weekOffset === 0, start from Sun Aug 9
+    // If weekOffset === 0, start from Sun Aug 9 (i - 1), ending on Sun Aug 16 (i = 7)
     d.setDate(mondayDate.getDate() + (weekOffset === 0 ? i - 1 : i));
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -788,9 +788,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
     onFinishWorkout(newLog);
   };
 
-  // Format header range for current week view (e.g., AUG 9 – AUG 15, 2026)
+  // Format header range for current week view (e.g., AUG 9 – AUG 16, 2026)
   const firstDay = weekDates[0];
-  const lastDay = weekDates[6];
+  const lastDay = weekDates[weekDates.length - 1];
   const weekRangeLabel = `${firstDay.monthShort.toUpperCase()} ${firstDay.dayNum} – ${lastDay.monthShort.toUpperCase()} ${lastDay.dayNum}, ${firstDay.year}`;
 
   return (
@@ -930,7 +930,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               cursor: 'pointer',
             }}
           >
-            Today (Aug 9)
+            Aug 9–16
           </button>
         )}
       </div>
