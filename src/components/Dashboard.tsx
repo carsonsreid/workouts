@@ -49,6 +49,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
     setLogs(initialLogs);
   }, [initialLogs]);
 
+  // Dynamic helper to get actual client-side local date in YYYY-MM-DD format
+  const getTodayISO = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   // Helper to calculate target week offset for any date ISO string (Base Monday = Aug 10, 2026)
   const calculateWeekOffsetForDate = (isoStr: string) => {
     const parts = isoStr.split('-').map(Number);
@@ -62,7 +71,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     return Math.floor(diffDays / 7);
   };
 
-  // Initialize selected date from URL query param ?date=YYYY-MM-DD or localStorage fallback
+  // Initialize selected date from URL query param ?date=YYYY-MM-DD, localStorage, or live client date
   const getInitialSelectedDate = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const dateParam = searchParams.get('date');
@@ -73,7 +82,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     if (cachedDate && /^\d{4}-\d{2}-\d{2}$/.test(cachedDate)) {
       return cachedDate;
     }
-    return '2026-08-10'; // Default to Aug 10, 2026
+    return getTodayISO(); // Dynamic local client-side date
   };
 
   const initialDate = getInitialSelectedDate();
@@ -1011,10 +1020,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </button>
         </div>
 
-        {/* CLEAN EMOJI-FREE "TODAY" BUTTON */}
+        {/* DYNAMIC LIVE CLIENT-SIDE "TODAY" BUTTON */}
         <button
           onClick={() => {
-            const todayISO = '2026-08-10'; // Jumps straight to today
+            const todayISO = getTodayISO();
             setWeekOffset(calculateWeekOffsetForDate(todayISO));
             handleSelectDate(todayISO);
           }}
