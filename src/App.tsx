@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routine, Exercise, WorkoutLog, GoogleSheetsConfig } from './types';
 import { StorageService } from './services/storage';
+import { SupabaseService } from './services/supabase';
 import { Dashboard } from './components/Dashboard';
 
 export function App() {
@@ -18,13 +19,29 @@ export function App() {
   useEffect(() => {
     setAllExercises(StorageService.getExercises());
     setRoutines(StorageService.getRoutines());
-    setLogs(StorageService.getWorkoutLogs());
     setSheetsConfig(StorageService.getSheetsConfig());
+
+    // Load initial logs from local storage first
+    const localLogs = StorageService.getWorkoutLogs();
+    setLogs(localLogs);
+
+    // Asynchronously fetch fresh logs directly from Supabase PostgreSQL
+    if (SupabaseService.isConfigured()) {
+      SupabaseService.fetchWorkoutHistory().then(cloudLogs => {
+        if (cloudLogs && cloudLogs.length > 0) {
+          // Merge cloud logs with local logs
+          const mergedMap = new Map<string, WorkoutLog>();
+          [...localLogs, ...cloudLogs].forEach(log => {
+            mergedMap.set(log.id, log);
+          });
+          setLogs(Array.from(mergedMap.values()));
+        }
+      });
+    }
   }, []);
 
   const handleFinishWorkout = (newLog: WorkoutLog) => {
-    const updated = [newLog, ...logs];
-    setLogs(updated);
+    setLogs(prev => [newLog, ...prev]);
   };
 
   return (

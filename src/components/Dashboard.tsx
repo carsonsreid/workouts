@@ -44,13 +44,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const [logs, setLogs] = useState<WorkoutLog[]>(initialLogs);
 
+  // Sync props logs to internal state whenever logs prop updates (e.g. after Supabase fetch)
+  useEffect(() => {
+    setLogs(initialLogs);
+  }, [initialLogs]);
+
   // Helper to calculate target week offset for any date ISO string (Base Monday = Aug 10, 2026)
   const calculateWeekOffsetForDate = (isoStr: string) => {
     const parts = isoStr.split('-').map(Number);
     const targetDate = new Date(parts[0], parts[1] - 1, parts[2]);
     const baseMonday = new Date(2026, 7, 10);
     
-    // Normalize time to midnight
     targetDate.setHours(0, 0, 0, 0);
     baseMonday.setHours(0, 0, 0, 0);
 
@@ -691,15 +695,25 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // State to hold dynamic set edits for each day
   const [workoutStateMap, setWorkoutStateMap] = useState<{ [isoDate: string]: any }>({});
 
-  // Auto pre-fill inputs if a workout log already exists in state/localStorage for selectedDateISO
+  // Robust date string matching logic (handles ISO strings and date strings safely across all timezones)
+  const isDateSubmitted = (iso: string) => {
+    return logs.some((l) => l.date.includes(iso) || l.routineName.includes(iso));
+  };
+
+  // Auto pre-fill inputs if a workout log already exists in state/localStorage/Supabase for selectedDateISO
   useEffect(() => {
-    const existingLog = logs.find(l => l.date.slice(0, 10) === selectedDateISO);
+    const existingLog = logs.find(l => l.date.includes(selectedDateISO) || l.routineName.includes(selectedDateISO));
     if (existingLog) {
       setWorkoutNotes(existingLog.notes || '');
       if (existingLog.exercises && existingLog.exercises.length > 0) {
         const baseData = getWorkoutDataForISO(selectedDateISO);
         const updatedExercises = baseData.exercises.map((ex: any) => {
-          const loggedEx = existingLog.exercises.find((e: any) => e.exerciseId === ex.id || e.exerciseName.toLowerCase() === ex.name.toLowerCase());
+          const loggedEx = existingLog.exercises.find((e: any) => 
+            e.exerciseId === ex.id || 
+            e.exerciseName?.toLowerCase() === ex.name?.toLowerCase() ||
+            ex.name?.toLowerCase().includes(e.exerciseName?.toLowerCase())
+          );
+
           if (!loggedEx) return ex;
           return {
             ...ex,
@@ -708,8 +722,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
               if (!loggedSet) return s;
               return {
                 ...s,
-                weightLbs: loggedSet.weightKg || s.weightLbs,
-                reps: loggedSet.reps || s.reps,
+                weightLbs: loggedSet.weightKg !== undefined ? loggedSet.weightKg : s.weightLbs,
+                reps: loggedSet.reps !== undefined ? loggedSet.reps : s.reps,
                 completed: loggedSet.completed !== undefined ? loggedSet.completed : true,
               };
             })
@@ -820,20 +834,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const [workoutNotes, setWorkoutNotes] = useState<string>('');
   const [statusMessage, setStatusMessage] = useState<string>('');
 
-  // Check if a date has a submitted log
-  const isDateSubmitted = (iso: string) => {
-    return logs.some((l) => l.date.slice(0, 10) === iso);
-  };
-
   const isAlreadySubmitted = isDateSubmitted(selectedDateISO);
 
   const handleSubmitWorkout = () => {
+    // Standardize ISO date to noon UTC so .slice(0, 10) never shifts across timezones
+    const fixedIsoDate = `${selectedDateISO}T12:00:00.000Z`;
+
     const newLog: WorkoutLog = {
-      id: `log-clean-${selectedDateISO}-${Date.now()}`,
+      id: `log-clean-${selectedDateISO}`,
       routineId: `rot-${selectedDateISO}`,
       routineName: `${activeWorkout.title} (${selectedDateISO})`,
       modality: activeWorkout.category.toLowerCase() as any,
-      date: new Date(selectedDateISO).toISOString(),
+      date: fixedIsoDate,
       durationMinutes: 45,
       totalVolumeKg: 15000,
       totalSetsCompleted: activeWorkout.exercises.reduce((acc: number, ex: ExerciseItem) => acc + ex.sets.filter(s => s.completed).length, 0) || 12,
