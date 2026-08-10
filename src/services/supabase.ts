@@ -14,6 +14,7 @@ export const SupabaseService = {
     return Boolean(url && key);
   },
 
+  // Save completed workout session submission to PostgreSQL
   async saveWorkoutLog(log: WorkoutLog): Promise<boolean> {
     const { url, key } = this.getSupabaseConfig();
     if (!url || !key) {
@@ -56,6 +57,7 @@ export const SupabaseService = {
     }
   },
 
+  // Fetch full logged workout history for Gemini AI coaching analysis
   async fetchWorkoutHistory(): Promise<WorkoutLog[]> {
     const { url, key } = this.getSupabaseConfig();
     if (!url || !key) return [];
@@ -86,6 +88,36 @@ export const SupabaseService = {
     } catch (err) {
       console.error('Failed to fetch from Supabase:', err);
       return [];
+    }
+  },
+
+  // Save dynamic weekly routine schedule to Supabase
+  async saveWeeklyRoutine(dateISO: string, routineData: any): Promise<boolean> {
+    const { url, key } = this.getSupabaseConfig();
+    if (!url || !key) return false;
+
+    try {
+      const response = await fetch(`${url}/rest/v1/weekly_routines`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': key,
+          'Authorization': `Bearer ${key}`,
+          'Prefer': 'resolution=merge-duplicates',
+        },
+        body: JSON.stringify({
+          iso_date: dateISO,
+          title: routineData.title,
+          category: routineData.category,
+          overview: routineData.overview,
+          exercises: routineData.exercises || [],
+        }),
+      });
+
+      return response.ok;
+    } catch (err) {
+      console.error('Failed to save weekly routine to Supabase:', err);
+      return false;
     }
   }
 };
