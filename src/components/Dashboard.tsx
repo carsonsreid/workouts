@@ -44,7 +44,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const [logs, setLogs] = useState<WorkoutLog[]>(initialLogs);
 
-  // Week offset state (0 = Mon Aug 10 - Sun Aug 16, -1 = Prev Week, +1 = Next Week)
+  // Week offset state (0 = Current Week including Sun Aug 9 & Mon Aug 10 - Sun Aug 16)
   const [weekOffset, setWeekOffset] = useState<number>(0);
   
   // Calculate Monday of the target week
@@ -58,30 +58,29 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   const mondayDate = getMondayForWeek(weekOffset);
 
-  // Generate 7 days for the current week (Monday through Sunday)
+  // Generate 7 days for the current week (Sunday Aug 9 + Monday Aug 10 through Saturday Aug 15)
+  // For weekOffset 0, include Sunday Aug 9 as the first day!
   const weekDates = Array.from({ length: 7 }, (_, i) => {
     const d = new Date(mondayDate);
-    d.setDate(mondayDate.getDate() + i);
+    // If weekOffset === 0, start from Sun Aug 9
+    d.setDate(mondayDate.getDate() + (weekOffset === 0 ? i - 1 : i));
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
     const iso = `${year}-${month}-${day}`;
     
-    // Day of week index (0 = Sun, 1 = Mon, ..., 6 = Sat)
-    const weekdayNum = d.getDay();
-
     return {
       iso,
       dayName: d.toLocaleDateString('en-US', { weekday: 'short' }),
       dayNum: d.getDate(),
       monthShort: d.toLocaleDateString('en-US', { month: 'short' }),
       year: d.getFullYear(),
-      weekdayNum,
+      weekdayNum: d.getDay(),
     };
   });
 
-  // Current Selected Date (ISO format YYYY-MM-DD, defaults to Monday Aug 10, 2026)
-  const [selectedDateISO, setSelectedDateISO] = useState<string>(weekDates[0].iso);
+  // Current Selected Date (ISO format YYYY-MM-DD, defaults to Sunday Aug 9, 2026)
+  const [selectedDateISO, setSelectedDateISO] = useState<string>('2026-08-09');
 
   // Update selectedDateISO whenever weekOffset changes if current selection isn't in view
   useEffect(() => {
@@ -109,9 +108,97 @@ export const Dashboard: React.FC<DashboardProps> = ({
     return new Date(parts[0], parts[1] - 1, parts[2]);
   };
 
-  // EXPLICIT WORKOUT ROUTINES FOR AUG 10 - AUG 16, 2026 ONLY
+  // EXPLICIT WORKOUT ROUTINES FOR AUG 9 & AUG 10 - AUG 16, 2026 ONLY
   const getWorkoutDataForISO = (isoDate: string) => {
     switch (isoDate) {
+      case '2026-08-09': // TODAY: Sunday Aug 9, 2026
+        return {
+          dayLabel: 'Sun',
+          title: 'Loaded Mobility & Strength-Through-Range',
+          category: 'Loaded Mobility',
+          overview: 'Loaded Mobility routine aligned with your Longevity Training Research Synthesis framework to protect your ACL and lateral meniscus reconstruction while keeping intensity high.',
+          exercises: [
+            {
+              id: 'aug9-atg',
+              name: 'Elevated ATG Split Squats',
+              category: 'Quad/VMO & Ankle Mobility',
+              note: 'Drive front knee forward until hamstring covers calf while keeping back leg straight.',
+              youtubeId: 'LHX34TpJxbQ',
+              videoTitle: 'ATG Split Squat Demo',
+              sets: [
+                { id: 'a9-atg-1', setType: '1', previous: '20 lbs × 10', weightLbs: 20, reps: 10, completed: false },
+                { id: 'a9-atg-2', setType: '2', previous: '25 lbs × 10', weightLbs: 25, reps: 10, completed: false },
+                { id: 'a9-atg-3', setType: '3', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
+              ]
+            },
+            {
+              id: 'aug9-jcurl',
+              name: 'Jefferson Curls',
+              category: 'Posterior Chain & Spinal Mobility',
+              note: 'Light/moderate weight, controlled spinal roll down one vertebra at a time into deep stretch.',
+              youtubeId: 'y_APeWo643w',
+              videoTitle: 'Jefferson Curl Demo',
+              sets: [
+                { id: 'a9-jc-1', setType: '1', previous: '20 lbs × 10', weightLbs: 20, reps: 10, completed: false },
+                { id: 'a9-jc-2', setType: '2', previous: '25 lbs × 10', weightLbs: 25, reps: 10, completed: false },
+                { id: 'a9-jc-3', setType: '3', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
+              ]
+            },
+            {
+              id: 'aug9-cossack',
+              name: 'Goblet Cossack Squats',
+              category: 'Deep Lateral Hip Opening',
+              note: 'Sink deep into one hip with opposite leg straight and toes pointed up.',
+              youtubeId: 'tpczTeSkHz0',
+              videoTitle: 'Cossack Squat Demo',
+              sets: [
+                { id: 'a9-cos-1', setType: '1', previous: '25 lbs × 8', weightLbs: 25, reps: 8, completed: false },
+                { id: 'a9-cos-2', setType: '2', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
+                { id: 'a9-cos-3', setType: '3', previous: '35 lbs × 8', weightLbs: 35, reps: 8, completed: false },
+              ]
+            },
+            {
+              id: 'aug9-tib',
+              name: 'Seated Heavy Dumbbell/KB Tibialis Raise',
+              category: 'Tibialis Anterior & Shin Strength',
+              note: 'Sit on bench with calves supported, balance weight on toes, and flex ankles upward under load.',
+              youtubeId: 'xs7wTPl28CE',
+              videoTitle: 'Seated DB Tibialis Raise Demo',
+              sets: [
+                { id: 'a9-tib-1', setType: '1', previous: '15 lbs × 15', weightLbs: 15, reps: 15, completed: false },
+                { id: 'a9-tib-2', setType: '2', previous: '20 lbs × 12', weightLbs: 20, reps: 12, completed: false },
+                { id: 'a9-tib-3', setType: '3', previous: '25 lbs × 12', weightLbs: 25, reps: 12, completed: false },
+              ]
+            },
+            {
+              id: 'aug9-pullover',
+              name: 'Dumbbell Pullovers',
+              category: 'Thoracic Extension & Lat Stretch',
+              note: 'Lower dumbbell overhead across bench into deep stretch before pulling back up.',
+              youtubeId: 'FK4rHfWKEac',
+              videoTitle: 'Dumbbell Pullover Demo',
+              sets: [
+                { id: 'a9-po-1', setType: '1', previous: '30 lbs × 12', weightLbs: 30, reps: 12, completed: false },
+                { id: 'a9-po-2', setType: '2', previous: '35 lbs × 10', weightLbs: 35, reps: 10, completed: false },
+                { id: 'a9-po-3', setType: '3', previous: '45 lbs × 10', weightLbs: 45, reps: 10, completed: false },
+              ]
+            },
+            {
+              id: 'aug9-powell',
+              name: 'Side-Lying Powell Raises',
+              category: 'Posterior Delt & Rotator Cuff',
+              note: 'Lie on side on bench and raise dumbbell in wide arc to target posterior shoulder.',
+              youtubeId: 'CuCAMi8pRWo',
+              videoTitle: 'Powell Raise Demo',
+              sets: [
+                { id: 'a9-pr-1', setType: '1', previous: '8 lbs × 12', weightLbs: 8, reps: 12, completed: false },
+                { id: 'a9-pr-2', setType: '2', previous: '10 lbs × 12', weightLbs: 10, reps: 12, completed: false },
+                { id: 'a9-pr-3', setType: '3', previous: '12 lbs × 12', weightLbs: 12, reps: 12, completed: false },
+              ]
+            }
+          ]
+        };
+
       case '2026-08-10': // Monday Aug 10, 2026
         return {
           dayLabel: 'Mon',
@@ -676,11 +763,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
       date: new Date(selectedDateISO).toISOString(),
       durationMinutes: 45,
       totalVolumeKg: 15000,
-      totalSetsCompleted: 12,
+      totalSetsCompleted: activeWorkout.exercises.reduce((acc: number, ex: ExerciseItem) => acc + ex.sets.filter(s => s.completed).length, 0) || 12,
       notes: workoutNotes || `${activeWorkout.title} completed in LBS.`,
       aiReview: `Submitted for ${selectedDateISO}!`,
       syncedToSheets: true,
-      exercises: [],
+      exercises: activeWorkout.exercises.map((ex: ExerciseItem) => ({
+        exerciseId: ex.id,
+        exerciseName: ex.name,
+        muscleGroup: ex.category,
+        sets: ex.sets.map((s: SetItem, i: number) => ({
+          id: s.id,
+          setNumber: i + 1,
+          reps: s.reps || 10,
+          weightKg: s.weightLbs || 0,
+          completed: s.completed,
+          rpe: 8
+        }))
+      })),
     };
 
     DatabaseService.saveWorkoutLog(newLog, sheetsConfig);
@@ -689,7 +788,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
     onFinishWorkout(newLog);
   };
 
-  // Format header range for current week view (e.g., AUG 10 – AUG 16, 2026)
+  // Format header range for current week view (e.g., AUG 9 – AUG 15, 2026)
   const firstDay = weekDates[0];
   const lastDay = weekDates[6];
   const weekRangeLabel = `${firstDay.monthShort.toUpperCase()} ${firstDay.dayNum} – ${lastDay.monthShort.toUpperCase()} ${lastDay.dayNum}, ${firstDay.year}`;
@@ -831,7 +930,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               cursor: 'pointer',
             }}
           >
-            Aug 10–16
+            Today (Aug 9)
           </button>
         )}
       </div>
@@ -1069,7 +1168,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <input
             className="figma-set-input"
             style={{ width: '100%', textAlign: 'left', padding: '8px 10px', fontSize: '0.75rem', fontWeight: 400 }}
-            placeholder="e.g. Metcon felt killer, knee bulletproofing felt solid..."
+            placeholder="e.g. ACL & meniscus felt 100% protected, VMO burn on tib raises..."
             value={workoutNotes}
             onChange={(e) => setWorkoutNotes(e.target.value)}
           />
