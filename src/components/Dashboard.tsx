@@ -1199,7 +1199,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         <div className="text-grey-var" style={{ fontSize: '0.7rem', fontWeight: 700, textAlign: 'center' }}>
                           #{set.setType}
                         </div>
-                        <div className="text-grey-var" style={{ fontSize: '0.74rem', fontWeight: 500 }}>
+                        <div className="text-grey-var" style={{ fontSize: '0.68rem', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {set.previous}
                         </div>
                         <div>
@@ -1230,7 +1230,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       <div className="text-grey-var" style={{ fontSize: '0.7rem', fontWeight: 700, textAlign: 'center' }}>
                         #{set.setType}
                       </div>
-                      <div className="text-grey-var" style={{ fontSize: '0.74rem', fontWeight: 500 }}>
+                      <div className="text-grey-var" style={{ fontSize: '0.68rem', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {set.previous}
                       </div>
                       <div>

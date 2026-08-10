@@ -21,7 +21,7 @@ html, body, body.theme-light {
   color: #0F172A;
   font-family: var(--font-system);
   min-height: 100vh;
-  padding: 16px 12px 32px;
+  padding: 12px 8px 32px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -148,25 +148,23 @@ body.theme-oled .text-grey-var { color: #A1A1AA !important; }
 
 body.theme-oled .overview-box {
   background: rgba(0, 163, 255, 0.06);
-  border: 1px solid rgba(0, 163, 255, 0.2);
+  border: 1px solid rgba(0, 163, 255, 0.25);
   border-left: 3.5px solid var(--figma-cyan);
   color: #D4D4D8;
 }
 
 body.theme-oled .figma-set-grid-strength,
-body.theme-oled .figma-set-grid-duration { background: rgba(255, 255, 255, 0.04); }
+body.theme-oled .figma-set-grid-duration { background: #18181B; }
 body.theme-oled .figma-set-grid-strength.completed,
 body.theme-oled .figma-set-grid-duration.completed { background: rgba(0, 163, 255, 0.16); border: 1px solid rgba(0, 163, 255, 0.35); }
 body.theme-oled .figma-set-input { background: #FFFFFF; border: none; color: #000000; }
-body.theme-oled .figma-set-check { border: 1.5px solid rgba(255, 255, 255, 0.25); background: transparent; }
+body.theme-oled .figma-set-check { border: 1.5px solid rgba(255, 255, 255, 0.3); background: transparent; }
 body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradient); border-color: transparent; color: #FFFFFF; }
 
-/* GENEROUS FLUID RESPONSIVE CONTAINER WIDTH (Up to 680px on desktop) */
+/* Global Layout Centered Max-Width */
 .app-wrapper {
-  width: 100%;
-  max-width: min(680px, 95vw);
+  max-width: 580px;
   margin: 0 auto;
-  transition: all 0.25s ease;
 }
 
 /* Horizontal Calendar Component */
@@ -174,31 +172,32 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
   display: flex;
   justify-content: space-between;
   border-radius: var(--radius-card);
-  padding: 8px 12px;
-  margin-bottom: 16px;
+  padding: 6px 8px;
+  margin-bottom: 14px;
 }
 
 .figma-cal-pill {
   flex: 1;
   border: none;
-  padding: 10px 6px;
+  padding: 8px 4px;
   border-radius: 12px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
+  position: relative;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cal-day-name {
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .cal-day-num {
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   font-weight: 800;
 }
 
@@ -213,27 +212,27 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 /* Training Tracker Card Container */
 .figma-tracker-card {
   border-radius: var(--radius-card);
-  padding: 20px 20px;
-  margin-bottom: 16px;
+  padding: 16px 14px;
+  margin-bottom: 14px;
   transition: all 0.2s ease;
 }
 
 /* Overview Callout Box */
 .overview-box {
   border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 0.78rem;
-  line-height: 1.5;
+  padding: 10px 12px;
+  font-size: 0.76rem;
+  line-height: 1.45;
   font-weight: 500;
-  margin-top: 12px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 16px;
   transition: all 0.2s ease;
 }
 
 /* Inline Expandable Video Container */
 .video-preview-container {
   width: 100%;
-  margin: 10px 0 14px;
+  margin: 8px 0 12px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
@@ -250,13 +249,13 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
   border: none;
 }
 
-/* Set Table Column Header Labels (LBS WEIGHT) */
+/* OPTIMIZED MOBILE SET TABLE GRID (PREVENT WRAPPING IN PREVIOUS COLUMN) */
 .set-header-strength {
   display: grid;
-  grid-template-columns: 32px 1fr 80px 80px 36px;
-  gap: 10px;
-  padding: 0 8px 6px;
-  font-size: 0.62rem;
+  grid-template-columns: 24px 1fr 58px 58px 32px;
+  gap: 6px;
+  padding: 0 6px 4px;
+  font-size: 0.6rem;
   font-weight: 800;
   color: #94A3B8;
   text-transform: uppercase;
@@ -266,10 +265,10 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 
 .set-header-duration {
   display: grid;
-  grid-template-columns: 32px 1fr 120px 36px;
-  gap: 10px;
-  padding: 0 8px 6px;
-  font-size: 0.62rem;
+  grid-template-columns: 24px 1fr 105px 32px;
+  gap: 6px;
+  padding: 0 6px 4px;
+  font-size: 0.6rem;
   font-weight: 800;
   color: #94A3B8;
   text-transform: uppercase;
@@ -280,10 +279,10 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 /* Strength Set Grid (5 columns with LBS) */
 .figma-set-grid-strength {
   display: grid;
-  grid-template-columns: 32px 1fr 80px 80px 36px;
+  grid-template-columns: 24px 1fr 58px 58px 32px;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 8px;
   border-radius: 8px;
   margin-bottom: 6px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -292,19 +291,19 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 /* Duration/Mobility Set Grid (4 columns) */
 .figma-set-grid-duration {
   display: grid;
-  grid-template-columns: 32px 1fr 120px 36px;
+  grid-template-columns: 24px 1fr 105px 32px;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 6px;
+  padding: 6px 8px;
   border-radius: 8px;
   margin-bottom: 6px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* INPUT BOXES: Smaller Text, NOT Bold (Font-weight 500) */
+/* INPUT BOXES: Compact & Centered for Mobile Screens */
 .figma-set-input {
   width: 100%;
-  padding: 7px 6px;
+  padding: 6px 4px;
   border-radius: 6px;
   font-family: var(--font-system);
   font-size: 0.78rem;
@@ -320,8 +319,8 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 }
 
 .figma-set-check {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
