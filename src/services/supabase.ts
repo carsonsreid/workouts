@@ -17,7 +17,7 @@ export const SupabaseService = {
     return Boolean(url && key);
   },
 
-  // Save completed workout session submission to PostgreSQL
+  // Save or update completed workout session submission in PostgreSQL (UPSERT)
   async saveWorkoutLog(log: WorkoutLog): Promise<boolean> {
     const { url, key } = this.getSupabaseConfig();
     if (!url || !key) {
@@ -32,7 +32,7 @@ export const SupabaseService = {
           'Content-Type': 'application/json',
           'apikey': key,
           'Authorization': `Bearer ${key}`,
-          'Prefer': 'return=minimal',
+          'Prefer': 'resolution=merge-duplicates,return=minimal',
         },
         body: JSON.stringify({
           id: log.id,
@@ -52,7 +52,7 @@ export const SupabaseService = {
         return false;
       }
 
-      console.log('✓ Workout log saved directly to Supabase PostgreSQL!');
+      console.log('✓ Workout log upserted directly in Supabase PostgreSQL!');
       return true;
     } catch (err) {
       console.error('Failed to sync to Supabase:', err);
@@ -106,10 +106,11 @@ export const SupabaseService = {
           'Content-Type': 'application/json',
           'apikey': key,
           'Authorization': `Bearer ${key}`,
-          'Prefer': 'resolution=merge-duplicates',
+          'Prefer': 'resolution=merge-duplicates,return=minimal',
         },
         body: JSON.stringify({
-          iso_date: dateISO,
+          id: `routine-${dateISO}`,
+          date: dateISO,
           title: routineData.title,
           category: routineData.category,
           overview: routineData.overview,
@@ -119,7 +120,7 @@ export const SupabaseService = {
 
       return response.ok;
     } catch (err) {
-      console.error('Failed to save weekly routine to Supabase:', err);
+      console.error('Failed to save weekly routine:', err);
       return false;
     }
   }
