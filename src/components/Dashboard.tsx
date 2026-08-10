@@ -150,7 +150,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // EXPLICIT WORKOUT ROUTINES FOR AUG 9 & AUG 10 - AUG 16, 2026 ONLY
   const getWorkoutDataForISO = (isoDate: string) => {
     switch (isoDate) {
-      case '2026-08-09': // Prior Sunday: Aug 9, 2026
+      case '2026-08-09': // Sunday Aug 9, 2026 (Submitted Workout Log Session)
         return {
           dayLabel: 'Sun',
           title: 'Loaded Mobility & Strength-Through-Range',
@@ -165,9 +165,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'LHX34TpJxbQ',
               videoTitle: 'ATG Split Squat Demo',
               sets: [
-                { id: 'a9-atg-1', setType: '1', previous: '20 lbs × 10', weightLbs: 20, reps: 10, completed: false },
-                { id: 'a9-atg-2', setType: '2', previous: '25 lbs × 10', weightLbs: 25, reps: 10, completed: false },
-                { id: 'a9-atg-3', setType: '3', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
+                { id: 'a9-atg-1', setType: '1', previous: '30 lbs × 10', weightLbs: 30, reps: 10, completed: true },
+                { id: 'a9-atg-2', setType: '2', previous: '40 lbs × 10', weightLbs: 40, reps: 10, completed: true },
+                { id: 'a9-atg-3', setType: '3', previous: '50 lbs × 8', weightLbs: 50, reps: 8, completed: true },
               ]
             },
             {
@@ -178,9 +178,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'y_APeWo643w',
               videoTitle: 'Jefferson Curl Demo',
               sets: [
-                { id: 'a9-jc-1', setType: '1', previous: '20 lbs × 10', weightLbs: 20, reps: 10, completed: false },
-                { id: 'a9-jc-2', setType: '2', previous: '25 lbs × 10', weightLbs: 25, reps: 10, completed: false },
-                { id: 'a9-jc-3', setType: '3', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
+                { id: 'a9-jc-1', setType: '1', previous: '12 lbs × 10', weightLbs: 12, reps: 10, completed: true },
+                { id: 'a9-jc-2', setType: '2', previous: '12 lbs × 10', weightLbs: 12, reps: 10, completed: true },
+                { id: 'a9-jc-3', setType: '3', previous: '12 lbs × 8', weightLbs: 12, reps: 8, completed: true },
               ]
             },
             {
@@ -191,9 +191,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'tpczTeSkHz0',
               videoTitle: 'Cossack Squat Demo',
               sets: [
-                { id: 'a9-cos-1', setType: '1', previous: '25 lbs × 8', weightLbs: 25, reps: 8, completed: false },
-                { id: 'a9-cos-2', setType: '2', previous: '30 lbs × 8', weightLbs: 30, reps: 8, completed: false },
-                { id: 'a9-cos-3', setType: '3', previous: '35 lbs × 8', weightLbs: 35, reps: 8, completed: false },
+                { id: 'a9-cos-1', setType: '1', previous: '12 lbs × 8', weightLbs: 12, reps: 8, completed: true },
+                { id: 'a9-cos-2', setType: '2', previous: '12 lbs × 8', weightLbs: 12, reps: 8, completed: true },
+                { id: 'a9-cos-3', setType: '3', previous: '12 lbs × 8', weightLbs: 12, reps: 8, completed: true },
               ]
             },
             {
@@ -204,9 +204,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'xs7wTPl28CE',
               videoTitle: 'Seated DB Tibialis Raise Demo',
               sets: [
-                { id: 'a9-tib-1', setType: '1', previous: '15 lbs × 15', weightLbs: 15, reps: 15, completed: false },
-                { id: 'a9-tib-2', setType: '2', previous: '20 lbs × 12', weightLbs: 20, reps: 12, completed: false },
-                { id: 'a9-tib-3', setType: '3', previous: '25 lbs × 12', weightLbs: 25, reps: 12, completed: false },
+                { id: 'a9-tib-1', setType: '1', previous: '12 lbs × 15', weightLbs: 12, reps: 15, completed: true },
+                { id: 'a9-tib-2', setType: '2', previous: '12 lbs × 12', weightLbs: 12, reps: 12, completed: true },
+                { id: 'a9-tib-3', setType: '3', previous: '12 lbs × 12', weightLbs: 12, reps: 12, completed: true },
               ]
             },
             {
@@ -217,9 +217,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'FK4rHfWKEac',
               videoTitle: 'Dumbbell Pullover Demo',
               sets: [
-                { id: 'a9-po-1', setType: '1', previous: '30 lbs × 12', weightLbs: 30, reps: 12, completed: false },
-                { id: 'a9-po-2', setType: '2', previous: '35 lbs × 10', weightLbs: 35, reps: 10, completed: false },
-                { id: 'a9-po-3', setType: '3', previous: '45 lbs × 10', weightLbs: 45, reps: 10, completed: false },
+                { id: 'a9-po-1', setType: '1', previous: '40 lbs × 12', weightLbs: 40, reps: 12, completed: true },
+                { id: 'a9-po-2', setType: '2', previous: '40 lbs × 10', weightLbs: 40, reps: 10, completed: true },
+                { id: 'a9-po-3', setType: '3', previous: '40 lbs × 10', weightLbs: 40, reps: 10, completed: true },
               ]
             },
             {
@@ -230,9 +230,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
               youtubeId: 'CuCAMi8pRWo',
               videoTitle: 'Powell Raise Demo',
               sets: [
-                { id: 'a9-pr-1', setType: '1', previous: '8 lbs × 12', weightLbs: 8, reps: 12, completed: false },
-                { id: 'a9-pr-2', setType: '2', previous: '10 lbs × 12', weightLbs: 10, reps: 12, completed: false },
-                { id: 'a9-pr-3', setType: '3', previous: '12 lbs × 12', weightLbs: 12, reps: 12, completed: false },
+                { id: 'a9-pr-1', setType: '1', previous: '8 lbs × 12', weightLbs: 8, reps: 12, completed: true },
+                { id: 'a9-pr-2', setType: '2', previous: '10 lbs × 12', weightLbs: 10, reps: 12, completed: true },
+                { id: 'a9-pr-3', setType: '3', previous: '12 lbs × 12', weightLbs: 12, reps: 12, completed: true },
               ]
             }
           ]
@@ -744,11 +744,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
     return baseData;
   }, [selectedDateISO, workoutStateMap, logs]);
 
-  // Keep notes synchronized with submitted log or empty
+  // Keep notes synchronized with submitted log or default for Aug 9
   useEffect(() => {
     const existingLog = logs.find(l => l.date.includes(selectedDateISO) || l.routineName.includes(selectedDateISO));
-    if (existingLog) {
-      setWorkoutNotes(existingLog.notes || '');
+    if (existingLog && existingLog.notes) {
+      setWorkoutNotes(existingLog.notes);
+    } else if (selectedDateISO === '2026-08-09') {
+      setWorkoutNotes('Knee analgesia wall sit worked magic! Zero patellar tendon pain on squats.');
     } else {
       setWorkoutNotes('');
     }
@@ -1234,7 +1236,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           onClick={() => handleToggleSetCheck(ex.id, set.id)}
                           title="Toggle Set Completion"
                         >
-                          <IconCheck size={12} />
+                          <IconCheck size={12} color={set.completed ? '#FFFFFF' : 'currentColor'} />
                         </button>
                       </div>
                     </div>
