@@ -1039,6 +1039,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {weekDates.map((d) => {
           const submitted = isDateSubmitted(d.iso);
           const isSelected = selectedDateISO === d.iso;
+          const dayData = getWorkoutDataForISO(d.iso);
+          const hasWorkoutScheduled = submitted || (dayData.exercises && dayData.exercises.length > 0);
+
+          // Dot Color Logic:
+          // - Completed Workout: Green (#10B981) [White on active cyan pill]
+          // - Uncompleted Scheduled Workout: Gray (#CBD5E1) [Translucent white on active cyan pill]
+          // - No Workout Scheduled: No dot at all!
+          let dotColor = 'transparent';
+          if (hasWorkoutScheduled) {
+            if (submitted) {
+              dotColor = isSelected ? '#FFFFFF' : '#10B981';
+            } else {
+              dotColor = isSelected ? 'rgba(255, 255, 255, 0.45)' : '#CBD5E1';
+            }
+          }
 
           return (
             <button
@@ -1053,16 +1068,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <span className="cal-day-name">{d.dayName}</span>
               <span className="cal-day-num">{d.dayNum}</span>
               
-              {/* MINIMALIST COLORED DOT INDICATOR (NO DOT FOR SELECTED ACTIVE DAY) */}
-              {!isSelected && (
+              {hasWorkoutScheduled ? (
                 <div
                   className="cal-dot-indicator"
                   style={{
-                    background: submitted ? '#10B981' : '#CBD5E1',
-                    boxShadow: submitted ? '0 1px 4px rgba(16, 185, 129, 0.4)' : 'none',
+                    background: dotColor,
+                    boxShadow: submitted ? (isSelected ? '0 1px 4px rgba(255,255,255,0.5)' : '0 1px 4px rgba(16, 185, 129, 0.4)') : 'none',
                   }}
-                  title={submitted ? 'Workout Completed' : 'Not Completed'}
+                  title={submitted ? 'Workout Completed' : 'Workout Scheduled'}
                 />
+              ) : (
+                <div style={{ width: '4px', height: '4px', marginTop: '2px' }} />
               )}
             </button>
           );
