@@ -969,7 +969,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       )}
 
-      {/* CALENDAR WEEK NAVIGATION HEADER BAR (ULTRA COMPACT SINGLE LINE HEADER) */}
+      {/* CALENDAR WEEK NAVIGATION HEADER BAR (CLEAN EMOJI-FREE SINGLE LINE HEADER) */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '0 4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <button
@@ -1011,7 +1011,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </button>
         </div>
 
-        {/* ULTRA-COMPACT "TODAY" FAST NAVIGATION LINK */}
+        {/* CLEAN EMOJI-FREE "TODAY" BUTTON */}
         <button
           onClick={() => {
             const todayISO = '2026-08-10'; // Jumps straight to today
@@ -1024,13 +1024,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
             border: 'none',
             borderRadius: '6px',
             padding: '3.5px 10px',
-            fontSize: '0.7rem',
+            fontSize: '0.72rem',
             fontWeight: 800,
             cursor: 'pointer',
             whiteSpace: 'nowrap',
           }}
         >
-          ⚡ Today
+          Today
         </button>
       </div>
 
@@ -1053,33 +1053,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <span className="cal-day-name">{d.dayName}</span>
               <span className="cal-day-num">{d.dayNum}</span>
               
-              {/* ABSOLUTE OVERLAY GREEN CHECKMARK BADGE (NEVER PUSHES PILL HEIGHT) */}
-              {submitted ? (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '3px',
-                    right: '3px',
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    background: isSelected ? '#FFFFFF' : '#10B981',
-                    boxShadow: isSelected ? '0 1px 4px rgba(0,0,0,0.2)' : '0 1px 4px rgba(16, 185, 129, 0.5)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 2,
-                  }}
-                  title="Workout Completed & Submitted"
-                >
-                  <IconCheck size={8} color={isSelected ? '#059669' : '#FFFFFF'} />
-                </div>
-              ) : (
+              {/* MINIMALIST COLORED DOT INDICATOR (NO DOT FOR SELECTED ACTIVE DAY) */}
+              {!isSelected && (
                 <div
                   className="cal-dot-indicator"
                   style={{
-                    background: isSelected ? 'rgba(255, 255, 255, 0.4)' : 'transparent',
+                    background: submitted ? '#10B981' : '#CBD5E1',
+                    boxShadow: submitted ? '0 1px 4px rgba(16, 185, 129, 0.4)' : 'none',
                   }}
+                  title={submitted ? 'Workout Completed' : 'Not Completed'}
                 />
               )}
             </button>
