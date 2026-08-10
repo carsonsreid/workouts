@@ -691,6 +691,42 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // State to hold dynamic set edits for each day
   const [workoutStateMap, setWorkoutStateMap] = useState<{ [isoDate: string]: any }>({});
 
+  // Auto pre-fill inputs if a workout log already exists in state/localStorage for selectedDateISO
+  useEffect(() => {
+    const existingLog = logs.find(l => l.date.slice(0, 10) === selectedDateISO);
+    if (existingLog) {
+      setWorkoutNotes(existingLog.notes || '');
+      if (existingLog.exercises && existingLog.exercises.length > 0) {
+        const baseData = getWorkoutDataForISO(selectedDateISO);
+        const updatedExercises = baseData.exercises.map((ex: any) => {
+          const loggedEx = existingLog.exercises.find((e: any) => e.exerciseId === ex.id || e.exerciseName.toLowerCase() === ex.name.toLowerCase());
+          if (!loggedEx) return ex;
+          return {
+            ...ex,
+            sets: ex.sets.map((s: any, idx: number) => {
+              const loggedSet = loggedEx.sets?.[idx];
+              if (!loggedSet) return s;
+              return {
+                ...s,
+                weightLbs: loggedSet.weightKg || s.weightLbs,
+                reps: loggedSet.reps || s.reps,
+                completed: loggedSet.completed !== undefined ? loggedSet.completed : true,
+              };
+            })
+          };
+        });
+
+        setWorkoutStateMap(prev => ({
+          ...prev,
+          [selectedDateISO]: {
+            ...baseData,
+            exercises: updatedExercises
+          }
+        }));
+      }
+    }
+  }, [selectedDateISO, logs]);
+
   const getWorkoutData = (isoDate: string) => {
     if (workoutStateMap[isoDate]) {
       return workoutStateMap[isoDate];
@@ -789,9 +825,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
     return logs.some((l) => l.date.slice(0, 10) === iso);
   };
 
+  const isAlreadySubmitted = isDateSubmitted(selectedDateISO);
+
   const handleSubmitWorkout = () => {
     const newLog: WorkoutLog = {
-      id: `log-clean-${Date.now()}`,
+      id: `log-clean-${selectedDateISO}-${Date.now()}`,
       routineId: `rot-${selectedDateISO}`,
       routineName: `${activeWorkout.title} (${selectedDateISO})`,
       modality: activeWorkout.category.toLowerCase() as any,
@@ -819,7 +857,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
     DatabaseService.saveWorkoutLog(newLog, sheetsConfig);
     setLogs(DatabaseService.getWorkoutLogs());
-    setStatusMessage(`✓ Session Saved for ${selectedDateISO}!`);
+    setStatusMessage(`✓ Session ${isAlreadySubmitted ? 'Updated' : 'Saved'} for ${selectedDateISO}!`);
     onFinishWorkout(newLog);
   };
 
@@ -1213,11 +1251,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         <div style={{ fontSize: '0.74rem', color: 'var(--figma-cyan)', fontWeight: 700, marginTop: '8px' }}>
-          {statusMessage || (isDateSubmitted(selectedDateISO) ? '✓ Results Saved' : 'Ready to Submit')}
+          {statusMessage || (isAlreadySubmitted ? '✓ Session Saved (Tap below to update)' : 'Ready to Submit')}
         </div>
 
         <button className="figma-btn-finish" onClick={handleSubmitWorkout}>
-          Finish Workout
+          {isAlreadySubmitted ? 'Update Workout' : 'Finish Workout'}
         </button>
       </div>
     </div>
