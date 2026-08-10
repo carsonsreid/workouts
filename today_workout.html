@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE AI Coach - Today's Workout</title>
+    <style>
+        :root {
+            --bg-color: #F5F5F7;
+            --apple-blue: #0071E3;
+            --apple-green: #34C759;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 32px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .badge {
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--apple-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 8px 0 4px;
+            letter-spacing: -0.02em;
+        }
+        p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        .exercise-box {
+            background: rgba(245, 247, 250, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 14px;
+        }
+        .exercise-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .exercise-notes {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .set-pill {
+            display: inline-block;
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <span class="badge">Antigravity AI Fitness Coach</span>
+                <h1>Sunday: Family Yoga & Autonomic Reset</h1>
+                <p>15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra</p>
+            </div>
+            <span class="badge" style="background: rgba(52, 199, 89, 0.1); color: var(--apple-green);">
+                2026-08-09
+            </span>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top: 0;">Prescribed Workout Block</h3>
+
+            <div class="exercise-box">
+                <div class="exercise-name">🧘 Downward-Facing Dog</div>
+                <div class="exercise-notes">Pedal feet for hamstring extensibility • Duration: 120s</div>
+            </div>
+
+            <div class="exercise-box">
+                <div class="exercise-name">🧘 Child Pose Savasana (Diaphragmatic Breath)</div>
+                <div class="exercise-notes">Deep diaphragmatic breathing to trigger parasympathetic dominance • Duration: 300s</div>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top: 0;">Recent Log History (0)</h3>
+
+        </div>
+    </div>
+</body>
+</html>

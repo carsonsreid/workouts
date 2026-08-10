@@ -1,0 +1,541 @@
+{
+  "schedule": {
+    "2026-08-01": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-02": {
+      "name": "Sunday: Family Yoga & Autonomic Reset",
+      "modality": "yoga",
+      "tagline": "15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra",
+      "yoga": [
+        {
+          "name": "Downward-Facing Dog",
+          "duration_sec": 120,
+          "notes": "Pedal feet for hamstring extensibility"
+        },
+        {
+          "name": "Child Pose Savasana (Diaphragmatic Breath)",
+          "duration_sec": 300,
+          "notes": "Deep diaphragmatic breathing to trigger parasympathetic dominance"
+        }
+      ]
+    },
+    "2026-08-03": {
+      "name": "Monday: Lower Body Strength & Knee Remediation",
+      "modality": "strength",
+      "tagline": "Poliquin step-ups, HSR squatting, Landmine RDLs & patellar tendon analgesia",
+      "exercises": [
+        {
+          "name": "Isometric Wall Sit (45s Analgesia)",
+          "sets": 1,
+          "reps": 1,
+          "weight_kg": 0,
+          "notes": "45s hold at 60\u00b0 knee flexion to release motor unit inhibition"
+        },
+        {
+          "name": "Poliquin Step-Up (Heel Elevated)",
+          "sets": 2,
+          "reps": 12,
+          "weight_kg": 0,
+          "notes": "Target terminal extension & VMO for patellar stability"
+        },
+        {
+          "name": "Barbell Back Squat (HSR 3s Eccentric)",
+          "sets": 2,
+          "reps": 6,
+          "weight_kg": 95,
+          "notes": "Slow 3-4s eccentric phase for Heavy Slow Resistance tendon remodeling"
+        },
+        {
+          "name": "Landmine Romanian Deadlift",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 60,
+          "notes": "Landmine arc naturally guides hip hinge while sparing lumbar spine"
+        }
+      ]
+    },
+    "2026-08-04": {
+      "name": "Tuesday: Travel Recovery & Contrast Therapy",
+      "modality": "cardio",
+      "tagline": "20-30 min Zone 2 Rowing + Sauna/Cold Plunge contrast ending on cold (S\u00f8berg Principle)",
+      "cardio": {
+        "target_distance_km": 4.0,
+        "target_pace": "5:30 /km",
+        "hr_zone": "Zone 2 (130-145 BPM)"
+      }
+    },
+    "2026-08-05": {
+      "name": "Wednesday: Upper Body Hypertrophy & Posture",
+      "modality": "strength",
+      "tagline": "Weighted ring pull-ups, DB bench with lengthened partials, face pulls & core fallouts",
+      "exercises": [
+        {
+          "name": "Weighted Ring Pull-Up",
+          "sets": 2,
+          "reps": 8,
+          "weight_kg": 10,
+          "notes": "Gymnastic rings allow natural wrist rotation to minimize shoulder stress"
+        },
+        {
+          "name": "Dumbbell Bench Press (Lengthened Partials)",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 34,
+          "notes": "Emphasize deep stretch at bottom position for mechanical tension"
+        },
+        {
+          "name": "High-to-Low Banded Face Pull",
+          "sets": 3,
+          "reps": 15,
+          "weight_kg": 15,
+          "notes": "Underhand thumbs-back grip into 90/90 goalpost finish"
+        }
+      ]
+    },
+    "2026-08-06": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-07": {
+      "name": "Friday: VO2 Max Norwegian 4x4 & Core",
+      "modality": "cardio",
+      "tagline": "Rowing HIIT (4x4 min at 90-95% HR max) + Pallof press anti-rotation core",
+      "cardio": {
+        "target_distance_km": 5.0,
+        "target_pace": "4:45 /km",
+        "hr_zone": "Zone 5 Norwegian 4x4 (170-185 BPM)"
+      },
+      "exercises": [
+        {
+          "name": "Cable Pallof Press (Anti-Rotation)",
+          "sets": 3,
+          "reps": 10,
+          "weight_kg": 20,
+          "notes": "Resist rotational torque to bulletproof lumbar spine"
+        }
+      ]
+    },
+    "2026-08-08": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-09": {
+      "name": "Sunday: Family Yoga & Autonomic Reset",
+      "modality": "yoga",
+      "tagline": "15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra",
+      "yoga": [
+        {
+          "name": "Downward-Facing Dog",
+          "duration_sec": 120,
+          "notes": "Pedal feet for hamstring extensibility"
+        },
+        {
+          "name": "Child Pose Savasana (Diaphragmatic Breath)",
+          "duration_sec": 300,
+          "notes": "Deep diaphragmatic breathing to trigger parasympathetic dominance"
+        }
+      ]
+    },
+    "2026-08-10": {
+      "name": "Monday: Lower Body Strength & Knee Remediation",
+      "modality": "strength",
+      "tagline": "Poliquin step-ups, HSR squatting, Landmine RDLs & patellar tendon analgesia",
+      "exercises": [
+        {
+          "name": "Isometric Wall Sit (45s Analgesia)",
+          "sets": 1,
+          "reps": 1,
+          "weight_kg": 0,
+          "notes": "45s hold at 60\u00b0 knee flexion to release motor unit inhibition"
+        },
+        {
+          "name": "Poliquin Step-Up (Heel Elevated)",
+          "sets": 2,
+          "reps": 12,
+          "weight_kg": 0,
+          "notes": "Target terminal extension & VMO for patellar stability"
+        },
+        {
+          "name": "Barbell Back Squat (HSR 3s Eccentric)",
+          "sets": 2,
+          "reps": 6,
+          "weight_kg": 95,
+          "notes": "Slow 3-4s eccentric phase for Heavy Slow Resistance tendon remodeling"
+        },
+        {
+          "name": "Landmine Romanian Deadlift",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 60,
+          "notes": "Landmine arc naturally guides hip hinge while sparing lumbar spine"
+        }
+      ]
+    },
+    "2026-08-11": {
+      "name": "Tuesday: Travel Recovery & Contrast Therapy",
+      "modality": "cardio",
+      "tagline": "20-30 min Zone 2 Rowing + Sauna/Cold Plunge contrast ending on cold (S\u00f8berg Principle)",
+      "cardio": {
+        "target_distance_km": 4.0,
+        "target_pace": "5:30 /km",
+        "hr_zone": "Zone 2 (130-145 BPM)"
+      }
+    },
+    "2026-08-12": {
+      "name": "Wednesday: Upper Body Hypertrophy & Posture",
+      "modality": "strength",
+      "tagline": "Weighted ring pull-ups, DB bench with lengthened partials, face pulls & core fallouts",
+      "exercises": [
+        {
+          "name": "Weighted Ring Pull-Up",
+          "sets": 2,
+          "reps": 8,
+          "weight_kg": 10,
+          "notes": "Gymnastic rings allow natural wrist rotation to minimize shoulder stress"
+        },
+        {
+          "name": "Dumbbell Bench Press (Lengthened Partials)",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 34,
+          "notes": "Emphasize deep stretch at bottom position for mechanical tension"
+        },
+        {
+          "name": "High-to-Low Banded Face Pull",
+          "sets": 3,
+          "reps": 15,
+          "weight_kg": 15,
+          "notes": "Underhand thumbs-back grip into 90/90 goalpost finish"
+        }
+      ]
+    },
+    "2026-08-13": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-14": {
+      "name": "Friday: VO2 Max Norwegian 4x4 & Core",
+      "modality": "cardio",
+      "tagline": "Rowing HIIT (4x4 min at 90-95% HR max) + Pallof press anti-rotation core",
+      "cardio": {
+        "target_distance_km": 5.0,
+        "target_pace": "4:45 /km",
+        "hr_zone": "Zone 5 Norwegian 4x4 (170-185 BPM)"
+      },
+      "exercises": [
+        {
+          "name": "Cable Pallof Press (Anti-Rotation)",
+          "sets": 3,
+          "reps": 10,
+          "weight_kg": 20,
+          "notes": "Resist rotational torque to bulletproof lumbar spine"
+        }
+      ]
+    },
+    "2026-08-15": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-16": {
+      "name": "Sunday: Family Yoga & Autonomic Reset",
+      "modality": "yoga",
+      "tagline": "15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra",
+      "yoga": [
+        {
+          "name": "Downward-Facing Dog",
+          "duration_sec": 120,
+          "notes": "Pedal feet for hamstring extensibility"
+        },
+        {
+          "name": "Child Pose Savasana (Diaphragmatic Breath)",
+          "duration_sec": 300,
+          "notes": "Deep diaphragmatic breathing to trigger parasympathetic dominance"
+        }
+      ]
+    },
+    "2026-08-17": {
+      "name": "Monday: Lower Body Strength & Knee Remediation",
+      "modality": "strength",
+      "tagline": "Poliquin step-ups, HSR squatting, Landmine RDLs & patellar tendon analgesia",
+      "exercises": [
+        {
+          "name": "Isometric Wall Sit (45s Analgesia)",
+          "sets": 1,
+          "reps": 1,
+          "weight_kg": 0,
+          "notes": "45s hold at 60\u00b0 knee flexion to release motor unit inhibition"
+        },
+        {
+          "name": "Poliquin Step-Up (Heel Elevated)",
+          "sets": 2,
+          "reps": 12,
+          "weight_kg": 0,
+          "notes": "Target terminal extension & VMO for patellar stability"
+        },
+        {
+          "name": "Barbell Back Squat (HSR 3s Eccentric)",
+          "sets": 2,
+          "reps": 6,
+          "weight_kg": 95,
+          "notes": "Slow 3-4s eccentric phase for Heavy Slow Resistance tendon remodeling"
+        },
+        {
+          "name": "Landmine Romanian Deadlift",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 60,
+          "notes": "Landmine arc naturally guides hip hinge while sparing lumbar spine"
+        }
+      ]
+    },
+    "2026-08-18": {
+      "name": "Tuesday: Travel Recovery & Contrast Therapy",
+      "modality": "cardio",
+      "tagline": "20-30 min Zone 2 Rowing + Sauna/Cold Plunge contrast ending on cold (S\u00f8berg Principle)",
+      "cardio": {
+        "target_distance_km": 4.0,
+        "target_pace": "5:30 /km",
+        "hr_zone": "Zone 2 (130-145 BPM)"
+      }
+    },
+    "2026-08-19": {
+      "name": "Wednesday: Upper Body Hypertrophy & Posture",
+      "modality": "strength",
+      "tagline": "Weighted ring pull-ups, DB bench with lengthened partials, face pulls & core fallouts",
+      "exercises": [
+        {
+          "name": "Weighted Ring Pull-Up",
+          "sets": 2,
+          "reps": 8,
+          "weight_kg": 10,
+          "notes": "Gymnastic rings allow natural wrist rotation to minimize shoulder stress"
+        },
+        {
+          "name": "Dumbbell Bench Press (Lengthened Partials)",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 34,
+          "notes": "Emphasize deep stretch at bottom position for mechanical tension"
+        },
+        {
+          "name": "High-to-Low Banded Face Pull",
+          "sets": 3,
+          "reps": 15,
+          "weight_kg": 15,
+          "notes": "Underhand thumbs-back grip into 90/90 goalpost finish"
+        }
+      ]
+    },
+    "2026-08-20": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-21": {
+      "name": "Friday: VO2 Max Norwegian 4x4 & Core",
+      "modality": "cardio",
+      "tagline": "Rowing HIIT (4x4 min at 90-95% HR max) + Pallof press anti-rotation core",
+      "cardio": {
+        "target_distance_km": 5.0,
+        "target_pace": "4:45 /km",
+        "hr_zone": "Zone 5 Norwegian 4x4 (170-185 BPM)"
+      },
+      "exercises": [
+        {
+          "name": "Cable Pallof Press (Anti-Rotation)",
+          "sets": 3,
+          "reps": 10,
+          "weight_kg": 20,
+          "notes": "Resist rotational torque to bulletproof lumbar spine"
+        }
+      ]
+    },
+    "2026-08-22": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-23": {
+      "name": "Sunday: Family Yoga & Autonomic Reset",
+      "modality": "yoga",
+      "tagline": "15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra",
+      "yoga": [
+        {
+          "name": "Downward-Facing Dog",
+          "duration_sec": 120,
+          "notes": "Pedal feet for hamstring extensibility"
+        },
+        {
+          "name": "Child Pose Savasana (Diaphragmatic Breath)",
+          "duration_sec": 300,
+          "notes": "Deep diaphragmatic breathing to trigger parasympathetic dominance"
+        }
+      ]
+    },
+    "2026-08-24": {
+      "name": "Monday: Lower Body Strength & Knee Remediation",
+      "modality": "strength",
+      "tagline": "Poliquin step-ups, HSR squatting, Landmine RDLs & patellar tendon analgesia",
+      "exercises": [
+        {
+          "name": "Isometric Wall Sit (45s Analgesia)",
+          "sets": 1,
+          "reps": 1,
+          "weight_kg": 0,
+          "notes": "45s hold at 60\u00b0 knee flexion to release motor unit inhibition"
+        },
+        {
+          "name": "Poliquin Step-Up (Heel Elevated)",
+          "sets": 2,
+          "reps": 12,
+          "weight_kg": 0,
+          "notes": "Target terminal extension & VMO for patellar stability"
+        },
+        {
+          "name": "Barbell Back Squat (HSR 3s Eccentric)",
+          "sets": 2,
+          "reps": 6,
+          "weight_kg": 95,
+          "notes": "Slow 3-4s eccentric phase for Heavy Slow Resistance tendon remodeling"
+        },
+        {
+          "name": "Landmine Romanian Deadlift",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 60,
+          "notes": "Landmine arc naturally guides hip hinge while sparing lumbar spine"
+        }
+      ]
+    },
+    "2026-08-25": {
+      "name": "Tuesday: Travel Recovery & Contrast Therapy",
+      "modality": "cardio",
+      "tagline": "20-30 min Zone 2 Rowing + Sauna/Cold Plunge contrast ending on cold (S\u00f8berg Principle)",
+      "cardio": {
+        "target_distance_km": 4.0,
+        "target_pace": "5:30 /km",
+        "hr_zone": "Zone 2 (130-145 BPM)"
+      }
+    },
+    "2026-08-26": {
+      "name": "Wednesday: Upper Body Hypertrophy & Posture",
+      "modality": "strength",
+      "tagline": "Weighted ring pull-ups, DB bench with lengthened partials, face pulls & core fallouts",
+      "exercises": [
+        {
+          "name": "Weighted Ring Pull-Up",
+          "sets": 2,
+          "reps": 8,
+          "weight_kg": 10,
+          "notes": "Gymnastic rings allow natural wrist rotation to minimize shoulder stress"
+        },
+        {
+          "name": "Dumbbell Bench Press (Lengthened Partials)",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 34,
+          "notes": "Emphasize deep stretch at bottom position for mechanical tension"
+        },
+        {
+          "name": "High-to-Low Banded Face Pull",
+          "sets": 3,
+          "reps": 15,
+          "weight_kg": 15,
+          "notes": "Underhand thumbs-back grip into 90/90 goalpost finish"
+        }
+      ]
+    },
+    "2026-08-27": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-28": {
+      "name": "Friday: VO2 Max Norwegian 4x4 & Core",
+      "modality": "cardio",
+      "tagline": "Rowing HIIT (4x4 min at 90-95% HR max) + Pallof press anti-rotation core",
+      "cardio": {
+        "target_distance_km": 5.0,
+        "target_pace": "4:45 /km",
+        "hr_zone": "Zone 5 Norwegian 4x4 (170-185 BPM)"
+      },
+      "exercises": [
+        {
+          "name": "Cable Pallof Press (Anti-Rotation)",
+          "sets": 3,
+          "reps": 10,
+          "weight_kg": 20,
+          "notes": "Resist rotational torque to bulletproof lumbar spine"
+        }
+      ]
+    },
+    "2026-08-29": {
+      "name": "Rest & Active Recovery",
+      "modality": "rest",
+      "tagline": "Family play & NEAT focus"
+    },
+    "2026-08-30": {
+      "name": "Sunday: Family Yoga & Autonomic Reset",
+      "modality": "yoga",
+      "tagline": "15 min static stretching (30-40% pain threshold) + 20 min NSDR / Yoga Nidra",
+      "yoga": [
+        {
+          "name": "Downward-Facing Dog",
+          "duration_sec": 120,
+          "notes": "Pedal feet for hamstring extensibility"
+        },
+        {
+          "name": "Child Pose Savasana (Diaphragmatic Breath)",
+          "duration_sec": 300,
+          "notes": "Deep diaphragmatic breathing to trigger parasympathetic dominance"
+        }
+      ]
+    },
+    "2026-08-31": {
+      "name": "Monday: Lower Body Strength & Knee Remediation",
+      "modality": "strength",
+      "tagline": "Poliquin step-ups, HSR squatting, Landmine RDLs & patellar tendon analgesia",
+      "exercises": [
+        {
+          "name": "Isometric Wall Sit (45s Analgesia)",
+          "sets": 1,
+          "reps": 1,
+          "weight_kg": 0,
+          "notes": "45s hold at 60\u00b0 knee flexion to release motor unit inhibition"
+        },
+        {
+          "name": "Poliquin Step-Up (Heel Elevated)",
+          "sets": 2,
+          "reps": 12,
+          "weight_kg": 0,
+          "notes": "Target terminal extension & VMO for patellar stability"
+        },
+        {
+          "name": "Barbell Back Squat (HSR 3s Eccentric)",
+          "sets": 2,
+          "reps": 6,
+          "weight_kg": 95,
+          "notes": "Slow 3-4s eccentric phase for Heavy Slow Resistance tendon remodeling"
+        },
+        {
+          "name": "Landmine Romanian Deadlift",
+          "sets": 2,
+          "reps": 10,
+          "weight_kg": 60,
+          "notes": "Landmine arc naturally guides hip hinge while sparing lumbar spine"
+        }
+      ]
+    }
+  },
+  "logs": [],
+  "config": {
+    "google_sheets_webhook": ""
+  }
+}
