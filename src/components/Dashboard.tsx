@@ -879,10 +879,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
     onFinishWorkout(newLog);
   };
 
-  // Format header range for current week view (e.g., AUG 10 – AUG 16, 2026)
+  // Format header range for current week view (e.g., Aug 3–9, '26 or Aug 10–16, '26)
   const firstDay = weekDates[0];
   const lastDay = weekDates[6];
-  const weekRangeLabel = `${firstDay.monthShort.toUpperCase()} ${firstDay.dayNum} – ${lastDay.monthShort.toUpperCase()} ${lastDay.dayNum}, ${firstDay.year}`;
+  const shortYearStr = `'${String(firstDay.year).slice(2)}`;
+  
+  const weekRangeLabel = firstDay.monthShort === lastDay.monthShort
+    ? `${firstDay.monthShort} ${firstDay.dayNum}–${lastDay.dayNum}, ${shortYearStr}`
+    : `${firstDay.monthShort} ${firstDay.dayNum} – ${lastDay.monthShort} ${lastDay.dayNum}, ${shortYearStr}`;
 
   return (
     <div className="app-wrapper">
@@ -965,17 +969,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       )}
 
-      {/* CALENDAR WEEK NAVIGATION HEADER BAR */}
+      {/* CALENDAR WEEK NAVIGATION HEADER BAR (ULTRA COMPACT SINGLE LINE HEADER) */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', padding: '0 4px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <button
             onClick={() => setWeekOffset(prev => prev - 1)}
             style={{
               background: '#FFFFFF',
               border: '1px solid #E2E8F0',
               borderRadius: '8px',
-              padding: '4px 10px',
-              fontSize: '0.78rem',
+              padding: '4px 8px',
+              fontSize: '0.74rem',
               fontWeight: 800,
               color: '#0F172A',
               cursor: 'pointer',
@@ -985,7 +989,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           >
             ◀
           </button>
-          <span style={{ fontSize: '0.76rem', fontWeight: 800, color: '#334155', letterSpacing: '0.04em' }}>
+          <span style={{ fontSize: '0.76rem', fontWeight: 800, color: '#334155', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
             {weekRangeLabel}
           </span>
           <button
@@ -994,8 +998,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
               background: '#FFFFFF',
               border: '1px solid #E2E8F0',
               borderRadius: '8px',
-              padding: '4px 10px',
-              fontSize: '0.78rem',
+              padding: '4px 8px',
+              fontSize: '0.74rem',
               fontWeight: 800,
               color: '#0F172A',
               cursor: 'pointer',
@@ -1007,26 +1011,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </button>
         </div>
 
-        {weekOffset !== 0 && (
-          <button
-            onClick={() => {
-              setWeekOffset(0);
-              handleSelectDate('2026-08-10');
-            }}
-            style={{
-              background: 'rgba(0, 163, 255, 0.12)',
-              color: 'var(--figma-cyan)',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '3px 9px',
-              fontSize: '0.68rem',
-              fontWeight: 800,
-              cursor: 'pointer',
-            }}
-          >
-            This Week (Aug 10–16)
-          </button>
-        )}
+        {/* ULTRA-COMPACT "TODAY" FAST NAVIGATION LINK */}
+        <button
+          onClick={() => {
+            const todayISO = '2026-08-10'; // Jumps straight to today
+            setWeekOffset(calculateWeekOffsetForDate(todayISO));
+            handleSelectDate(todayISO);
+          }}
+          style={{
+            background: 'rgba(0, 163, 255, 0.12)',
+            color: 'var(--figma-cyan)',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '3.5px 10px',
+            fontSize: '0.7rem',
+            fontWeight: 800,
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          ⚡ Today
+        </button>
       </div>
 
       {/* 1. CLEAN 7-DAY HORIZONTAL CALENDAR STRIP */}
@@ -1047,24 +1052,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
             >
               <span className="cal-day-name">{d.dayName}</span>
               <span className="cal-day-num">{d.dayNum}</span>
+              
+              {/* ABSOLUTE OVERLAY GREEN CHECKMARK BADGE (NEVER PUSHES PILL HEIGHT) */}
               {submitted ? (
                 <div
                   style={{
-                    marginTop: '2px',
+                    position: 'absolute',
+                    top: '3px',
+                    right: '3px',
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    background: isSelected ? '#FFFFFF' : '#10B981',
+                    boxShadow: isSelected ? '0 1px 4px rgba(0,0,0,0.2)' : '0 1px 4px rgba(16, 185, 129, 0.5)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '14px',
-                    height: '14px',
-                    borderRadius: '50%',
-                    background: isSelected ? '#FFFFFF' : '#10B981',
-                    color: isSelected ? '#059669' : '#FFFFFF',
-                    boxShadow: isSelected ? '0 2px 6px rgba(0,0,0,0.15)' : '0 2px 6px rgba(16, 185, 129, 0.4)',
-                    transition: 'all 0.2s ease',
+                    zIndex: 2,
                   }}
                   title="Workout Completed & Submitted"
                 >
-                  <IconCheck size={9} color={isSelected ? '#059669' : '#FFFFFF'} />
+                  <IconCheck size={8} color={isSelected ? '#059669' : '#FFFFFF'} />
                 </div>
               ) : (
                 <div

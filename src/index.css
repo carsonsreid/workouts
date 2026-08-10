@@ -176,16 +176,18 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
   margin-bottom: 14px;
 }
 
+/* STRICT UNIFORM FIXED HEIGHT CALENDAR PILLS (52px) FOR 100% EVEN CALENDAR BOX */
 .figma-cal-pill {
   flex: 1;
   border: none;
-  padding: 8px 4px;
+  padding: 6px 4px;
   border-radius: 12px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
+  height: 52px;
   position: relative;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -202,8 +204,8 @@ body.theme-oled .figma-set-check.completed { background: var(--figma-cyan-gradie
 }
 
 .cal-dot-indicator {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   margin-top: 2px;
   transition: all 0.2s ease;
