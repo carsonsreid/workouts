@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Routine, Exercise, WorkoutLog, GoogleSheetsConfig } from '../types';
 import { IconCheck, IconPlay } from './Icons';
 import { DatabaseService } from '../services/db';
@@ -695,60 +695,64 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // State to hold dynamic set edits for each day
   const [workoutStateMap, setWorkoutStateMap] = useState<{ [isoDate: string]: any }>({});
 
-  // Robust date string matching logic (handles ISO strings and date strings safely across all timezones)
+  // Robust date string matching logic
   const isDateSubmitted = (iso: string) => {
     return logs.some((l) => l.date.includes(iso) || l.routineName.includes(iso));
   };
 
-  // Auto pre-fill inputs if a workout log already exists in state/localStorage/Supabase for selectedDateISO
+  // SYNCHRONOUSLY COMPUTE ACTIVE WORKOUT FROM BASE + SAVED LOG + LOCAL EDITS
+  const activeWorkout = useMemo(() => {
+    const baseData = getWorkoutDataForISO(selectedDateISO);
+    
+    // 1. If user has active local edits in this session, use local edits
+    if (workoutStateMap[selectedDateISO]) {
+      return workoutStateMap[selectedDateISO];
+    }
+
+    // 2. Otherwise, if a saved log exists in state/Supabase, merge recorded sets & checkmarks!
+    const existingLog = logs.find(l => l.date.includes(selectedDateISO) || l.routineName.includes(selectedDateISO));
+    if (existingLog && existingLog.exercises && existingLog.exercises.length > 0) {
+      const updatedExercises = baseData.exercises.map((ex: any) => {
+        const loggedEx = existingLog.exercises.find((e: any) => 
+          e.exerciseId === ex.id || 
+          e.exerciseName?.toLowerCase() === ex.name?.toLowerCase() ||
+          ex.name?.toLowerCase().includes(e.exerciseName?.toLowerCase())
+        );
+
+        if (!loggedEx) return ex;
+        return {
+          ...ex,
+          sets: ex.sets.map((s: any, idx: number) => {
+            const loggedSet = loggedEx.sets?.[idx];
+            if (!loggedSet) return s;
+            return {
+              ...s,
+              weightLbs: loggedSet.weightKg !== undefined && loggedSet.weightKg > 0 ? loggedSet.weightKg : s.weightLbs,
+              reps: loggedSet.reps !== undefined && loggedSet.reps > 0 ? loggedSet.reps : s.reps,
+              completed: loggedSet.completed !== undefined ? Boolean(loggedSet.completed) : true,
+            };
+          })
+        };
+      });
+
+      return {
+        ...baseData,
+        exercises: updatedExercises,
+      };
+    }
+
+    return baseData;
+  }, [selectedDateISO, workoutStateMap, logs]);
+
+  // Keep notes synchronized with submitted log or empty
   useEffect(() => {
     const existingLog = logs.find(l => l.date.includes(selectedDateISO) || l.routineName.includes(selectedDateISO));
     if (existingLog) {
       setWorkoutNotes(existingLog.notes || '');
-      if (existingLog.exercises && existingLog.exercises.length > 0) {
-        const baseData = getWorkoutDataForISO(selectedDateISO);
-        const updatedExercises = baseData.exercises.map((ex: any) => {
-          const loggedEx = existingLog.exercises.find((e: any) => 
-            e.exerciseId === ex.id || 
-            e.exerciseName?.toLowerCase() === ex.name?.toLowerCase() ||
-            ex.name?.toLowerCase().includes(e.exerciseName?.toLowerCase())
-          );
-
-          if (!loggedEx) return ex;
-          return {
-            ...ex,
-            sets: ex.sets.map((s: any, idx: number) => {
-              const loggedSet = loggedEx.sets?.[idx];
-              if (!loggedSet) return s;
-              return {
-                ...s,
-                weightLbs: loggedSet.weightKg !== undefined ? loggedSet.weightKg : s.weightLbs,
-                reps: loggedSet.reps !== undefined ? loggedSet.reps : s.reps,
-                completed: loggedSet.completed !== undefined ? loggedSet.completed : true,
-              };
-            })
-          };
-        });
-
-        setWorkoutStateMap(prev => ({
-          ...prev,
-          [selectedDateISO]: {
-            ...baseData,
-            exercises: updatedExercises
-          }
-        }));
-      }
+    } else {
+      setWorkoutNotes('');
     }
   }, [selectedDateISO, logs]);
-
-  const getWorkoutData = (isoDate: string) => {
-    if (workoutStateMap[isoDate]) {
-      return workoutStateMap[isoDate];
-    }
-    return getWorkoutDataForISO(isoDate);
-  };
-
-  const activeWorkout = getWorkoutData(selectedDateISO);
 
   // Toggle set checkbox completion state
   const handleToggleSetCheck = (exerciseId: string, setId: string) => {
@@ -1035,7 +1039,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
               className={`figma-cal-pill ${isSelected ? 'active' : ''}`}
               onClick={() => {
                 handleSelectDate(d.iso);
-                setWorkoutNotes('');
                 setStatusMessage('');
                 setExpandedVideoExId(null);
               }}
