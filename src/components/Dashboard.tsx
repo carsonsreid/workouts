@@ -247,82 +247,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
           ]
         };
 
-      case '2026-08-10': // Monday Aug 10, 2026
+      case '2026-08-10': // Monday Aug 10, 2026 (Skipped due to back injury)
         return {
           dayLabel: 'Mon',
-          title: 'Heavy Lower Body Strength & Conditioning Metcon',
-          category: 'Strength & Metcon',
-          overview: 'Combines heavy multi-joint squatting and deadlifting with a high-intensity 12-minute kettlebell and thruster metcon circuit.',
-          exercises: [
-            {
-              id: 'mon-squat',
-              name: 'Barbell Back Squat',
-              category: 'Quads, Glutes & Core Strength',
-              note: 'Drive knees outward and sink to parallel before explosively driving through the heels.',
-              youtubeId: 'aOzrA4FgnM0',
-              videoTitle: 'Barbell Back Squat Demo',
-              sets: [
-                { id: 'm-sq-1', setType: '1', previous: '205 lbs × 6', weightLbs: 205, reps: 6, completed: false },
-                { id: 'm-sq-2', setType: '2', previous: '215 lbs × 6', weightLbs: 215, reps: 6, completed: false },
-                { id: 'm-sq-3', setType: '3', previous: '225 lbs × 6', weightLbs: 225, reps: 6, completed: false },
-                { id: 'm-sq-4', setType: '4', previous: '225 lbs × 6', weightLbs: 225, reps: 6, completed: false },
-              ]
-            },
-            {
-              id: 'mon-rdl',
-              name: 'Heavy Romanian Deadlift (RDL)',
-              category: 'Hamstrings & Posterior Chain',
-              note: 'Hinge hard at the hips with a flat back to stretch hamstrings under heavy tension.',
-              youtubeId: 'szHJ7aAU2CM',
-              videoTitle: 'Romanian Deadlift Demo',
-              sets: [
-                { id: 'm-rdl-1', setType: '1', previous: '205 lbs × 8', weightLbs: 205, reps: 8, completed: false },
-                { id: 'm-rdl-2', setType: '2', previous: '215 lbs × 8', weightLbs: 215, reps: 8, completed: false },
-                { id: 'm-rdl-3', setType: '3', previous: '225 lbs × 8', weightLbs: 225, reps: 8, completed: false },
-                { id: 'm-rdl-4', setType: '4', previous: '225 lbs × 8', weightLbs: 225, reps: 8, completed: false },
-              ]
-            },
-            {
-              id: 'mon-kb',
-              name: 'Kettlebell Swings (Metcon Part B)',
-              category: 'Posterior Conditioning & Hinge Power',
-              note: 'Snap hips forcefully to drive kettlebell to chest height without using arm pulling strength.',
-              youtubeId: 'aSYap2yhW8s',
-              videoTitle: 'Kettlebell Swings Demo',
-              sets: [
-                { id: 'm-kb-1', setType: '1', previous: '12-Min AMRAP @ 53 lbs', weightLbs: 53, reps: 15, completed: false },
-              ]
-            },
-            {
-              id: 'mon-thrust',
-              name: 'Dumbbell Thrusters (Metcon Part B)',
-              category: 'Full Body Conditioning & Overhead Drive',
-              note: 'Squat to full depth and drive dumbbells overhead in one continuous fluid motion.',
-              youtubeId: 'qnOikHllwWc',
-              videoTitle: 'Dumbbell Thrusters Demo',
-              sets: [
-                { id: 'm-th-1', setType: '1', previous: '12-Min AMRAP @ 35 lbs DBs', weightLbs: 35, reps: 10, completed: false },
-              ]
-            },
-            {
-              id: 'mon-step',
-              name: 'Poliquin Step-Up (Finisher)',
-              category: 'VMO Isolation & Knee Bulletproofing',
-              note: 'Heel elevated on 3" step; drive knee forward over toe to tap opposite heel smoothly.',
-              youtubeId: '4HTL_23ULuE',
-              videoTitle: 'Poliquin Step-Up Demo',
-              sets: [
-                { id: 'm-ps-1', setType: '1', previous: '35 lbs × 12', weightLbs: 35, reps: 12, completed: false },
-                { id: 'm-ps-2', setType: '2', previous: '35 lbs × 12', weightLbs: 35, reps: 12, completed: false },
-                { id: 'm-ps-3', setType: '3', previous: '35 lbs × 12', weightLbs: 35, reps: 12, completed: false },
-              ]
-            }
-          ]
+          title: 'No Workout Scheduled',
+          category: 'Rest Day',
+          overview: 'Rest and active recovery day.',
+          exercises: []
         };
 
-      case '2026-08-11': // Tuesday Aug 11, 2026
+      case '2026-08-11': // Tuesday Aug 11, 2026 (Skipped due to back injury)
         return {
           dayLabel: 'Tue',
+          title: 'No Workout Scheduled',
+          category: 'Rest Day',
+          overview: 'Rest and active recovery day.',
+          exercises: []
+        };
+
+      case '2026-08-12': // Wednesday Aug 12, 2026 (Moved Heavy Upper Body Push/Pull from Tuesday)
+        return {
+          dayLabel: 'Wed',
           title: 'Heavy Upper Body Push/Pull & Snatch Metcon',
           category: 'Strength & Metcon',
           overview: 'Pairs heavy incline pressing and weighted pull-ups with a fast-paced dumbbell snatch and push-up conditioning circuit.',
@@ -388,29 +333,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 { id: 't-fp-1', setType: '1', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
                 { id: 't-fp-2', setType: '2', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
                 { id: 't-fp-3', setType: '3', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
-              ]
-            }
-          ]
-        };
-
-      case '2026-08-12': // Wednesday Aug 12, 2026
-        return {
-          dayLabel: 'Wed',
-          title: 'Light Evening Travel Zone 2 Run or Bike',
-          category: 'Cardio / Recovery',
-          overview: 'A 25–30 minute low-intensity Zone 2 cardio session during travel evening to flush metabolic waste and maintain aerobic base.',
-          exercises: [
-            {
-              id: 'wed-run',
-              name: 'Light Outdoor Run or Stationary Bike',
-              category: 'Zone 2 Aerobic Base',
-              note: 'Keep effort at a conversational pace (60–70% max HR) without pushing into anaerobic fatigue.',
-              youtubeId: '6EhaDP7WKG0',
-              videoTitle: 'Zone 2 Cardio Demo',
-              isDurationBased: true,
-              durationUnit: 'minutes',
-              sets: [
-                { id: 'w-r-1', setType: '1', previous: '25-30 Mins @ Zone 2', durationValue: '30 mins', completed: false },
               ]
             }
           ]
