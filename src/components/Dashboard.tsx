@@ -265,74 +265,87 @@ export const Dashboard: React.FC<DashboardProps> = ({
           exercises: []
         };
 
-      case '2026-08-12': // Wednesday Aug 12, 2026 (Moved Heavy Upper Body Push/Pull from Tuesday)
+      case '2026-08-12': // Wednesday Aug 12, 2026 (Updated Heavy Upper Body Push/Pull & DB Clean-Press Metcon)
         return {
           dayLabel: 'Wed',
-          title: 'Heavy Upper Body Push/Pull & Snatch Metcon',
+          title: 'Heavy Upper Body Push/Pull & DB Clean-Press Metcon',
           category: 'Strength & Metcon',
-          overview: 'Pairs heavy incline pressing and weighted pull-ups with a fast-paced dumbbell snatch and push-up conditioning circuit.',
+          overview: 'Pairs heavy incline dumbbell bench pressing and bodyweight pull-ups with a high-output dumbbell clean & press metcon circuit and chest-supported rear delt flyes.',
           exercises: [
             {
-              id: 'tue-inc',
+              id: 'wed-inc',
               name: 'Incline Dumbbell Bench Press',
               category: 'Upper Chest & Front Deltoids',
-              note: 'Set bench to 30 degrees and lower dumbbells with elbows tucked at 45 degrees.',
+              note: 'Set bench to 30 degrees and lower dumbbells under control with elbows tucked at 45 degrees.',
               youtubeId: '8fXfwG4ftaQ',
               videoTitle: 'Incline DB Bench Demo',
               sets: [
-                { id: 't-inc-1', setType: '1', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
-                { id: 't-inc-2', setType: '2', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
-                { id: 't-inc-3', setType: '3', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
-                { id: 't-inc-4', setType: '4', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
+                { id: 'w-inc-1', setType: '1', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
+                { id: 'w-inc-2', setType: '2', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
+                { id: 'w-inc-3', setType: '3', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
+                { id: 'w-inc-4', setType: '4', previous: '60 lbs × 8', weightLbs: 60, reps: 8, completed: false },
               ]
             },
             {
-              id: 'tue-pu',
-              name: 'Weighted Pull-Up',
+              id: 'wed-pu',
+              name: 'Bodyweight Pull-Up',
               category: 'Lats & Upper Back',
-              note: 'Drive chest to bar and squeeze shoulder blades together at full extension.',
+              note: 'Pull chest to bar and squeeze shoulder blades together at the top of each rep.',
               youtubeId: 'qAT31DQYiuw',
-              videoTitle: 'Weighted Pull-Up Demo',
+              videoTitle: 'Bodyweight Pull-Up Demo',
               sets: [
-                { id: 't-pu-1', setType: '1', previous: '+25 lbs × 6', weightLbs: 25, reps: 6, completed: false },
-                { id: 't-pu-2', setType: '2', previous: '+25 lbs × 6', weightLbs: 25, reps: 6, completed: false },
-                { id: 't-pu-3', setType: '3', previous: '+25 lbs × 6', weightLbs: 25, reps: 6, completed: false },
-                { id: 't-pu-4', setType: '4', previous: '+25 lbs × 6', weightLbs: 25, reps: 6, completed: false },
+                { id: 'w-pu-1', setType: '1', previous: 'BW × 8', weightLbs: 0, reps: 8, completed: false },
+                { id: 'w-pu-2', setType: '2', previous: 'BW × 8', weightLbs: 0, reps: 8, completed: false },
+                { id: 'w-pu-3', setType: '3', previous: 'BW × 8', weightLbs: 0, reps: 8, completed: false },
+                { id: 'w-pu-4', setType: '4', previous: 'BW × 8', weightLbs: 0, reps: 8, completed: false },
               ]
             },
             {
-              id: 'tue-snatch',
-              name: 'Single-Arm Dumbbell Snatch (Metcon Part B)',
-              category: 'Full Body Power & Conditioning',
-              note: 'Drive through hips and pull dumbbell overhead in one explosive continuous movement.',
-              youtubeId: 'rCVmr5bgI7c',
-              videoTitle: 'DB Snatch Demo',
+              id: 'wed-row',
+              name: 'Chest-Supported Dumbbell Row',
+              category: 'Mid-Back & Rhomboids',
+              note: 'Lie chest-down on incline bench and drive elbows back toward your hips without swinging.',
+              youtubeId: 'qD1WZ5pSuvk',
+              videoTitle: 'Chest-Supported DB Row Demo',
               sets: [
-                { id: 't-sn-1', setType: '1', previous: '4 Rounds @ 45 lbs', weightLbs: 45, reps: 10, completed: false },
+                { id: 'w-row-1', setType: '1', previous: '50 lbs × 10', weightLbs: 50, reps: 10, completed: false },
+                { id: 'w-row-2', setType: '2', previous: '55 lbs × 10', weightLbs: 55, reps: 10, completed: false },
+                { id: 'w-row-3', setType: '3', previous: '60 lbs × 10', weightLbs: 60, reps: 10, completed: false },
               ]
             },
             {
-              id: 'tue-pushup',
-              name: 'Push-Ups (Metcon Part B)',
+              id: 'wed-cp',
+              name: 'Dumbbell Clean & Push Press (Metcon Part B)',
+              category: 'Upper Body Explosive Power & Shoulder Drive',
+              note: 'Clean dumbbells to shoulders and dip knees to drive them overhead continuously.',
+              youtubeId: 'HKx22sWywxc',
+              videoTitle: 'DB Clean & Push Press Demo',
+              sets: [
+                { id: 'w-cp-1', setType: '1', previous: '4 Rounds @ 45 lbs', weightLbs: 45, reps: 10, completed: false },
+              ]
+            },
+            {
+              id: 'wed-pushup',
+              name: 'Strict Push-Ups (Metcon Part B)',
               category: 'Chest & Triceps Stamina',
               note: 'Lock core rigid and touch chest to floor on every single repetition.',
               youtubeId: 'qAT31DQYiuw',
               videoTitle: 'Push-Up Demo',
               sets: [
-                { id: 't-p-1', setType: '1', previous: '4 Rounds × 15 reps', weightLbs: 0, reps: 15, completed: false },
+                { id: 'w-p-1', setType: '1', previous: '4 Rounds × 15 reps', weightLbs: 0, reps: 15, completed: false },
               ]
             },
             {
-              id: 'tue-face',
-              name: 'Standing Cable Face Pull (Finisher)',
-              category: 'Scapular Health & External Rotators',
-              note: 'Set pulley at eye level and pull rope to forehead with thumbs pointing backward.',
-              youtubeId: 'FK4rHfWKEac',
-              videoTitle: 'Cable Face Pull Demo',
+              id: 'wed-flye',
+              name: 'Chest-Supported Dumbbell Rear Delt Flye (Finisher)',
+              category: 'Posterior Deltoid & Scapular Health',
+              note: 'Lie chest-down on bench and raise arms out in a wide arc, pinching rear delts at the top.',
+              youtubeId: 'CuCAMi8pRWo',
+              videoTitle: 'Rear Delt Flye Demo',
               sets: [
-                { id: 't-fp-1', setType: '1', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
-                { id: 't-fp-2', setType: '2', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
-                { id: 't-fp-3', setType: '3', previous: '50 lbs × 15', weightLbs: 50, reps: 15, completed: false },
+                { id: 'w-fly-1', setType: '1', previous: '15 lbs × 12', weightLbs: 15, reps: 12, completed: false },
+                { id: 'w-fly-2', setType: '2', previous: '20 lbs × 12', weightLbs: 20, reps: 12, completed: false },
+                { id: 'w-fly-3', setType: '3', previous: '20 lbs × 12', weightLbs: 20, reps: 12, completed: false },
               ]
             }
           ]
